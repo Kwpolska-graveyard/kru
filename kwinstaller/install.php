@@ -1,6 +1,6 @@
 <?php
 //Kw's Installer
-//Part of Kw's Random Utils
+//Part of KRU
 //Copyright Kwpolska 2010. Licensed on GPLv2.
 if (count($_POST) == 0) {
 echo '<form method="POST" action="install.php">
