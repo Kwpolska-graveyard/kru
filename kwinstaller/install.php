@@ -19,7 +19,8 @@ try
 				`language` VARCHAR( 50 ) NOT NULL ,
 				`timestamp` VARCHAR( 50 ) NOT NULL
 				) ENGINE = MYISAM'); // edit it with your needs. example from kwpastebin.
-		if ($stmt == 0) echo 'It failed. (code: 0)'; else echo 'Congratulations. (code: 1)';
+		if ($stmt == 0) die('It failed. (code: 0)'); else echo 'Congratulations. (code: 1)';
+		unlink('install.php') or die(' failed to remove installer');
 	}
 catch(PDOException $e)
 	{
