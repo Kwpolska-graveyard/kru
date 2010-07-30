@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 # KwDocumentator
+# Part of KRU
 # Copyright Kwpolska 2010. Licensed on GPLv2.
 use warnings;
 print "KwDocumentator\nCopyright Kwpolska 2010. Licensed on GPLv2.\n\n";
