@@ -8,8 +8,12 @@ Welcome to the awesome KwInstaller. The only thing I will let you is to edit my 
 <textarea name="config" cols="80" rows="24">'.file_get_contents('./config.php').'</textarea><br>
 <input type="submit" value="ok">
 </form>';
-} else {
+die();
+}
 file_put_contents('./config.php', $_POST['config']);
+echo 'continue?'
+if ($_POST['moar'] == 'yes')
+{
 try
 	{
 		include_once './config.php';
@@ -28,4 +32,5 @@ catch(PDOException $e)
 		echo 'It failed. (code: none), error message:' . $e->getMessage();
 	}
 }
+//TODO: fix
 ?>
