@@ -2,31 +2,45 @@
 # KwDocumentator
 # Part of KRU
 # Copyright Kwpolska 2010. Licensed on GPLv2.
+# Portions copyright Enlik 2010.
 use warnings;
-use Term::ANSIColor;
+use strict;
+use Term::ANSIColor qw(:constants);
 print "KwDocumentator\nCopyright Kwpolska 2010. Licensed on GPLv2.\n\n";
-sub printblue {
+sub pb {
 my $value=shift;
-print color 'blue';
-print '['.$value.'] ';
-print color 'reset';
+print BOLD, CYAN, '['.$value.'] ', RESET;
 }
-printblue("1");
+sub py {
+my $value=shift;
+print BOLD, YELLOW, '['.$value.'] ', RESET;
+}
+pb("1");
 print "Main program information\n";
+py(">");
 my $maininfo = <STDIN>;
-
+print "\n";
+pb("2");
 print "Purpose\n";
+py(">");
 my $purpose = <STDIN>;
-
+print "\n";
+pb("3");
 print "Install instructions\n";
+py(">");
 my $instructions = <STDIN>;
-
+print "\n";
+pb("4");
 print "Additional notes - leave empty if needed\n";
+py(">");
 my $notesbase = <STDIN>;
-
+print "\n";
+pb("5");
 print "Save the file as:\n";
+py(">");
 my $location = <STDIN>;
-
+print "\n";
+py("*");
 print "Preparing... ";
 chomp($maininfo);
 chomp($purpose);
@@ -38,39 +52,17 @@ if ($notesbase ne "") {
 $notes = "\nNOTES:\n--------------\n$notesbase\n";
 }
 print "done\n";
+py("*");
 print "Saving data... ";
-open($fh, '>', $location) or die "Wrong chmods to $!";
-#you can edit the template here:
-print $fh <<THEND;
-$maininfo
---------------
-
-PURPOSE:
---------------
-$purpose
-
-INSTALLATION:
---------------
-$instructions
-$notes
-COPYRIGHT:
---------------
-Copyright (C) 2010 Kwpolska.
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-THEND
-close $fh;
+open(TH, '<', './kwdtemplate') or die "Can't read the template!";
+open(FH, '>', $location) or die "Wrong chmods to $!";
+while(<TH>) {
+	$_ =~ s/T_PURPOSE/$purpose/;
+	$_ =~ s/T_MAININFO/$maininfo/;
+	$_ =~ s/T_INSTRUCTIONS/$instructions/;
+	$_ =~ s/T_NOTES/$notes/;
+}
+close FH;
+close TH;
 print "done\n";
 
