@@ -4,7 +4,7 @@
 # Copyright Kwpolska 2010. Licensed on GPLv2.
 # Portions copyright Enlik 2010.
 use warnings;
-use strict;
+#use strict;
 use Term::ANSIColor qw(:constants);
 print "KwDocumentator\nCopyright Kwpolska 2010. Licensed on GPLv2.\n\n";
 sub pb {
@@ -56,11 +56,13 @@ py("*");
 print "Saving data... ";
 open(TH, '<', './kwdtemplate') or die "Can't read the template!";
 open(FH, '>', $location) or die "Wrong chmods to $!";
-while(<TH>) {
+while(TH) {
 	$_ =~ s/T_PURPOSE/$purpose/;
 	$_ =~ s/T_MAININFO/$maininfo/;
 	$_ =~ s/T_INSTRUCTIONS/$instructions/;
 	$_ =~ s/T_NOTES/$notes/;
+	print;
+	print FH $_; # lub print $fh_dest $_;
 }
 close FH;
 close TH;
