@@ -4,7 +4,7 @@
 # Copyright Kwpolska 2010. Licensed on GPLv2.
 # Portions copyright Enlik 2010.
 use warnings;
-#use strict;
+use strict;
 use Term::ANSIColor qw(:constants);
 print "KwDocumentator\nCopyright Kwpolska 2010. Licensed on GPLv2.\n\n";
 sub pb {
