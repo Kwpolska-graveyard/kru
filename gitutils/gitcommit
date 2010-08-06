@@ -1,0 +1,16 @@
+#!/bin/bash
+echo '** Git Auto Commiter'
+echo '** Copyright Kwpolska 2010.'
+echo '** Date: '`date`
+cd ~/git
+for dirname in *
+do
+	echo ">> Entering directory $dirname"
+	cd ~/git/$dirname
+	git add ./*
+	git commit $@
+	git push
+	cd ../
+	echo "<< Finished commiting in $dirname"
+done
+echo "** Done commiting."
