@@ -54,17 +54,14 @@ $notes = "\nNOTES:\n--------------\n$notesbase\n";
 print "done\n";
 py("*");
 print "Saving data... ";
-open(TH, '<', './kwdtemplate') or die "Can't read the template!";
-open(FH, '>', $location) or die "Wrong chmods to $!";
-while(TH) {
+open(my $th, '<', './kwdtemplate') or die "Can't read the template!";
+open(my $fh, '>', $location) or die "Wrong chmods to $!";
+while(<$th>) {
 	$_ =~ s/T_PURPOSE/$purpose/;
 	$_ =~ s/T_MAININFO/$maininfo/;
 	$_ =~ s/T_INSTRUCTIONS/$instructions/;
 	$_ =~ s/T_NOTES/$notes/;
-	print;
-	print FH $_; # lub print $fh_dest $_;
+	print $fh $_; # lub print $fh_dest $_;
 }
-close FH;
-close TH;
 print "done\n";
 
