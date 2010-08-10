@@ -1,3 +1,14 @@
-NORMAL USAGE:
---------------
-If you want to use it normally, with functions as in my standard readmes, just edit the kwdtemplate file and you're good to go. The one suppiled with the installer is a derriative of my own readmes, with GNU GPLv2 copyright notice.
+1. Edit the kwdtemplate file. Put it the way you want it. You have to put ALL of the variables, including notes. Put it like this:
+
+1 PURPOSE:
+2 T_PURPOSE
+3 
+4 INSTALL:
+5 T_INSTRUCTIONS
+6 T_NOTES
+7 rest of the file
+
+it puts just nothing in the line. but it must be in file.
+2. Edit the perl script. You shall edit the notes template or do other stuff for doing it your way.
+3. Check if it works. If not, fix your files.
+If you have problems all the way, put an issue in the tracker at http://github.com/Kwpolska/kru/issues
