@@ -71,7 +71,7 @@ $notes = "\nNOTES:\n--------------\n$notesbase\n";
 print "done\n";
 pg("*");
 print "Reading the template... ";
-open(my $from, '<', './kwdtemplate') or die "FAILED\nCan't read the template! $!\n";
+open(my $from, '<', $template) or die "FAILED\nCan't read the template! $!\n";
 print "done\n";
 pg("*");
 print "Creating the destination file...";
