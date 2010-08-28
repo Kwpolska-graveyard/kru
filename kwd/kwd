@@ -68,17 +68,17 @@ my $notes = '';
 if ($notesbase ne "") {
 $notes = "\nNOTES:\n--------------\n$notesbase\n";
 }
-print "done\n";
+print " done\n";
 pg("*");
-print "Reading the template... ";
+print "Reading the template...";
 open(my $from, '<', $template) or die "FAILED\nCan't read the template! $!\n";
-print "done\n";
+print " done\n";
 pg("*");
 print "Creating the destination file...";
 open(my $to, '>', $location) or die "FAILED\nCan't create the destination file! $!\n";
-print "done\n";
+print " done\n";
 pg("*");
-print "Replacing the strings... ";
+print "Replacing the strings...";
 while(<$from>) {
 	$_ =~ s/T_PURPOSE/$purpose/;
 	$_ =~ s/T_MAININFO/$maininfo/;
@@ -86,6 +86,6 @@ while(<$from>) {
 	$_ =~ s/T_NOTES/$notes/;
 	print $to $_;
 }
-print "done\n";
+print " done\n";
 pg("*");
 print "Your file has been generated.\n";
