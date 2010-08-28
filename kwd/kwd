@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+my $template = "./kwdtemplate"; #EDIT IT!
 # KwDocumentor
 # Part of KRU
 # Copyright Kwpolska 2010. Licensed on GPLv3.
@@ -6,6 +7,8 @@
 use warnings;
 use strict;
 use Term::ANSIColor qw(:constants);
+use File::HomeDir;
+#colorful UI
 sub pb {
 my $value=shift;
 print BOLD, CYAN, '['.$value.'] ', RESET;
@@ -48,25 +51,32 @@ print "Save the file as:\n";
 py(">");
 my $location = <STDIN>;
 pg("*");
-print "Preparing... ";
+print "Preparing...";
 chomp($maininfo);
+$maininfo =~ s/\\n/\n/;
 chomp($purpose);
+$purpose =~ s/\\n/\n/;
 chomp($instructions);
+$instructions =~ s/\\n/\n/;
 chomp($location);
 chomp($notesbase);
+$notesbase =~ s/\\n/\n/;
 my $notes = '';
 #comment the 3 lines below if you don't want to use notes
+#if you do, edit the template to your own
 if ($notesbase ne "") {
 $notes = "\nNOTES:\n--------------\n$notesbase\n";
 }
 print "done\n";
 pg("*");
-print "Opening files... ";
-open(my $from, '<', './kwdtemplate') or die "error\nCan't read the template!\nQuitting.\n";
-open(my $to, '>', $location) or die "Wrong chmods to $!";
+print "Reading the template... ";
+open(my $from, '<', ) or die "FAILED\nCan't read the template! $!\n";
 print "done\n";
 pg("*");
-print "Filling and saving... ";
+open(my $to, '>', $location) or die "FAILED\nCan't read the location file! $!\n";
+print "done\n";
+pg("*");
+print "Replacing the strings... ";
 while(<$from>) {
 	$_ =~ s/T_PURPOSE/$purpose/;
 	$_ =~ s/T_MAININFO/$maininfo/;
@@ -76,4 +86,4 @@ while(<$from>) {
 }
 print "done\n";
 pg("*");
-print "All done.\n";
+print "Your file has been generated.\n";

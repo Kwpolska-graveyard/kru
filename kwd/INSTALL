@@ -6,9 +6,9 @@
 4 INSTALL:
 5 T_INSTRUCTIONS
 6 T_NOTES
-7 rest of the file
+...
 
 it puts just nothing in the line. but it must be in file.
-2. Edit the perl script. You shall edit the notes template or do other stuff for doing it your way.
-3. Check if it works. If not, fix your files.
+2. Edit the perl script. You NEED to change the path to template file. You shall edit the notes template or do other stuff for doing it your way.
+4. Check if it works. If not, fix your files.
 If you have problems all the way, put an issue in the tracker at http://github.com/Kwpolska/kru/issues
