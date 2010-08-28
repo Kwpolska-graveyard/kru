@@ -59,22 +59,21 @@ my $notes = '';
 if ($notesbase ne "") {
 $notes = "\nNOTES:\n--------------\n$notesbase\n";
 }
-#end of commenting area
 print "done\n";
 pg("*");
 print "Opening files... ";
-open(my $th, '<', './kwdtemplate') or die "Can't read the template!";
-open(my $fh, '>', $location) or die "Wrong chmods to $!";
+open(my $from, '<', './kwdtemplate') or die "error\nCan't read the template!\nQuitting.\n";
+open(my $to, '>', $location) or die "Wrong chmods to $!";
 print "done\n";
 pg("*");
 print "Filling and saving... ";
-while(<$th>) {
+while(<$from>) {
 	$_ =~ s/T_PURPOSE/$purpose/;
 	$_ =~ s/T_MAININFO/$maininfo/;
 	$_ =~ s/T_INSTRUCTIONS/$instructions/;
 	$_ =~ s/T_NOTES/$notes/;
-	#do you get the template? put below me lines like $_ =~ s/T_STRING_IN_THE_FILE/$variable_there/;
-	print $fh $_; # lub print $fh_dest $_;
+	print $to $_;
 }
 print "done\n";
-
+pg("*");
+print "All done.\n";
