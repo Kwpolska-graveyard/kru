@@ -1,5 +1,4 @@
 #!/usr/bin/perl
-my $template = "./kwdtemplate"; #EDIT IT!
 # KWD/KwDocumentor
 # Part of KRU
 # Copyright Kwpolska 2010. Licensed on GPLv3.
@@ -7,6 +6,9 @@ my $template = "./kwdtemplate"; #EDIT IT!
 use warnings;
 use strict;
 use Term::ANSIColor qw(:constants);
+# QUOTE-UNQUOTE CONFIG
+my $template = "./kwdtemplate"; # where lies the template file?
+# END OF CONFIG
 #colorful UI
 sub pb {
 my $value=shift;
@@ -21,7 +23,7 @@ my $value=shift;
 print BOLD, GREEN '['.$value.'] ', RESET;
 }
 pg("*");
-print "KwDocumentator\n";
+print "KWD/KwDocumentator\n";
 pg("*");
 print "Copyright Kwpolska 2010. Licensed on GPLv3.\n";
 #template:
@@ -69,10 +71,10 @@ $notes = "\nNOTES:\n--------------\n$notesbase\n";
 print "done\n";
 pg("*");
 print "Reading the template... ";
-open(my $from, '<', $template) or die "FAILED\nCan't read the template! $!\n";
+open(my $from, '<', './kwdtemplate') or die "FAILED\nCan't read the template! $!\n";
 print "done\n";
 pg("*");
-print "Creating the destination file..."
+print "Creating the destination file...";
 open(my $to, '>', $location) or die "FAILED\nCan't create the destination file! $!\n";
 print "done\n";
 pg("*");
