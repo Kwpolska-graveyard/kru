@@ -1,13 +1,12 @@
 #!/usr/bin/perl
 my $template = "./kwdtemplate"; #EDIT IT!
-# KwDocumentor
+# KWD/KwDocumentor
 # Part of KRU
 # Copyright Kwpolska 2010. Licensed on GPLv3.
 # Portions copyright Enlik 2010.
 use warnings;
 use strict;
 use Term::ANSIColor qw(:constants);
-use File::HomeDir;
 #colorful UI
 sub pb {
 my $value=shift;
@@ -70,10 +69,11 @@ $notes = "\nNOTES:\n--------------\n$notesbase\n";
 print "done\n";
 pg("*");
 print "Reading the template... ";
-open(my $from, '<', ) or die "FAILED\nCan't read the template! $!\n";
+open(my $from, '<', $template) or die "FAILED\nCan't read the template! $!\n";
 print "done\n";
 pg("*");
-open(my $to, '>', $location) or die "FAILED\nCan't read the location file! $!\n";
+print "Creating the destination file..."
+open(my $to, '>', $location) or die "FAILED\nCan't create the destination file! $!\n";
 print "done\n";
 pg("*");
 print "Replacing the strings... ";
