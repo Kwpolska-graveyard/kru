@@ -7,7 +7,7 @@ use warnings;
 use strict;
 use Term::ANSIColor qw(:constants);
 # QUOTE-UNQUOTE CONFIG
-my $template = "./kwdtemplate"; # where lies the template file?
+my $template = "./kwdtemplate"; # where is the template file?
 # END OF CONFIG
 #colorful UI
 sub pb {
