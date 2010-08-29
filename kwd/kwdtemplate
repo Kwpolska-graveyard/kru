@@ -6,8 +6,8 @@
                                                         |___/ 
 The script was not configured properly!
 Input received:
-1. T_MAININFO
-2. T_PURPOSE
-3. T_INSTRUCTIONS
-4. T_NOTES
+1. _KWDMAININFO_
+2. _KWDPURPOSE_
+3. _KWDINSTRUCTIONS_
+4. _KWDNOTES_
 KWD copyright Kwpolska 2010.

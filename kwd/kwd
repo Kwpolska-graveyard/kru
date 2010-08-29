@@ -80,10 +80,10 @@ print " done\n";
 pg("*");
 print "Replacing the strings...";
 while(<$from>) {
-	$_ =~ s/T_PURPOSE/$purpose/;
-	$_ =~ s/T_MAININFO/$maininfo/;
-	$_ =~ s/T_INSTRUCTIONS/$instructions/;
-	$_ =~ s/T_NOTES/$notes/;
+	$_ =~ s/_KWDPURPOSE_/$purpose/;
+	$_ =~ s/_KWDMAININFO_/$maininfo/;
+	$_ =~ s/_KWDINSTRUCTIONS_/$instructions/;
+	$_ =~ s/_KWDNOTES_/$notes/;
 	print $to $_;
 }
 print " done\n";
