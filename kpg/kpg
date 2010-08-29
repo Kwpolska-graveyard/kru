@@ -1,0 +1,27 @@
+#!/usr/bin/perl
+# KPG/Kw's Page Generator
+# Part of KRU
+# Copyright Kwpolska 2010. Licensed on GPLv3.
+# Portions copyright Enlik 2010.
+#USAGE: ./kpg "title of the page" /location/of/the/markdowned/file /location/of/the/html/file/to/generate
+use warnings;
+use strict;
+# QUOTE-UNQUOTE CONFIG
+my $template = "./kpgtemplate.html"; #where is the template file?
+my $pathtomarkdown = "./markdown.pl";#where is the markdown file?
+# END OF CONFIG
+my $base = $ARGV[1];
+my $location = $ARGV[2];
+my $title = $ARGV[0];
+print "KPG/Kw's Page Generator\n";
+print "Copyright Kwpolska 2010. Licensed on GPLv3.\n";
+open my $from, '<', $template or die "Can't read the template! $!\n";
+open my $to, '>', $location or die "Can't create the destination file! $!\n";
+open my $fh, '-|', $pathtomarkdown, $base or die $!; my $contents = do { local $/; <$fh> };
+#I guess we're there.
+while(<$from>) {
+	$_ =~ s/_KPGTITLE_/$title/;
+	$_ =~ s/_KPGCONTENTS_/$contents/;
+	print $to $_;
+}
+print "Your file has been generated.\n";
