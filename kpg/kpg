@@ -3,25 +3,32 @@
 # Part of KRU
 # Copyright Kwpolska 2010. Licensed on GPLv3.
 # Portions copyright Enlik 2010.
-#USAGE: ./kpg "title of the page" /location/of/the/markdowned/file /location/of/the/html/file/to/generate
+#USAGE: ./kpg /location/of/the/markdowned/file
 use warnings;
 use strict;
 # QUOTE-UNQUOTE CONFIG
 my $template = "./kpgtemplate.html"; #where is the template file?
 my $pathtomarkdown = "./markdown.pl";#where is the markdown file?
 # END OF CONFIG
-my $base = $ARGV[1];
-my $location = $ARGV[2];
-my $title = $ARGV[0];
+my $base = $ARGV[0];
+#my $location = $ARGV[1]; NO WAI!
+my $location = $base.".html";
 print "KPG/Kw's Page Generator\n";
 print "Copyright Kwpolska 2010. Licensed on GPLv3.\n";
+#opening files...
 open my $from, '<', $template or die "Can't read the template! $!\n";
 open my $to, '>', $location or die "Can't create the destination file! $!\n";
-open my $fh, '-|', $pathtomarkdown, $base or die $!; my $contents = do { local $/; <$fh> };
+open my $basefh, '+<', $base or die "Can't read the title from base file! $!\n";
+#reading title...
+my $title = $basefh;
+$title =~ s/KPGT://;
+$basefh =~ s/KPGT://;
+#parsing...
+open my $fh, '-|', $pathtomarkdown, $base or die "Can't parse the content with help of markdown! $!\n"; my $contents = do { local $/; <$fh> };
 #I guess we're there.
 while(<$from>) {
 	$_ =~ s/_KPGTITLE_/$title/;
 	$_ =~ s/_KPGCONTENTS_/$contents/;
 	print $to $_;
 }
-print "Your file has been generated.\n";
+print "Your file, $location, has been generated.\n";

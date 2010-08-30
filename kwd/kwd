@@ -44,10 +44,14 @@ print "Install instructions\n";
 py(">");
 my $instructions = <STDIN>;
 pb("4");
-print "Additional notes - leave empty if needed\n";
+print "Additional notes - leave empty if not needed\n";
 py(">");
 my $notesbase = <STDIN>;
 pb("5");
+print "Usage instructions - leave empty if not needed\n";
+py(">");
+my $usagebase = <STDIN>;
+pb("6");
 print "Save the file as:\n";
 py(">");
 my $location = <STDIN>;
@@ -62,13 +66,16 @@ $instructions =~ s/\\n/\n/;
 chomp($location);
 chomp($notesbase);
 $notesbase =~ s/\\n/\n/;
+chomp($usagebase);
+$usagebase =~ s/\\n/\n/;
 my $notes = '';
-#comment the 3 lines below if you don't want to use notes
-#if you do, edit the template to your own
+#edit the templates to your own
 if ($notesbase ne "") {
-$notes = "\nNOTES:\n--------------\n$notesbase\n";
+$notes = "\nNOTES:\n==============\n$notesbase\n";
 }
-print " done\n";
+if ($usagebase ne "") {
+$notes .= "\nUSAGE:\n==============\n$usagebase\n"; #HA BISKY!
+}
 pg("*");
 print "Reading the template...";
 open(my $from, '<', $template) or die "FAILED\nCan't read the template! $!\n";

@@ -1,16 +1,20 @@
 KPG/Kw's webPage Generator. The smaller brother of KWD.
---------------
+==============
 
 PURPOSE:
---------------
+==============
 Generating HTML. With help of Markdown, which is awesome.
 
 INSTALLATION:
---------------
-Edit the kpgtemplate. You don't need to edit the perl file for now.
+==============
+Edit the kpgtemplate.html.
+
+USAGE:
+==============
+./kpg /location/of/markdowned/file - the first line must be "KPBT:Title of the document".
 
 COPYRIGHT:
---------------
+==============
 Copyright (C) 2010 Kwpolska.
 
 This program is free software: you can redistribute it and/or modify
