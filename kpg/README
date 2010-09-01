@@ -1,19 +1,19 @@
 KPG/Kw's webPage Generator. The smaller brother of KWD.
 ==============
 
-PURPOSE:
+PURPOSE
 ==============
 Generating HTML. With help of Markdown, which is awesome.
 
-INSTALLATION:
+INSTALLATION
 ==============
 Edit the kpgtemplate.html.
 
-USAGE:
+USAGE
 ==============
-./kpg /location/of/markdowned/file - the first line must be "KPBT:Title of the document".
+./kpg /location/of/markdowned/file - the first line must be the title of your content, the second line shall be the H1 line.
 
-COPYRIGHT:
+COPYRIGHT
 ==============
 Copyright (C) 2010 Kwpolska.
 

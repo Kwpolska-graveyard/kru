@@ -7,28 +7,26 @@
 use warnings;
 use strict;
 # QUOTE-UNQUOTE CONFIG
-my $template = "./kpgtemplate.html"; #where is the template file?
-my $pathtomarkdown = "./markdown.pl";#where is the markdown file?
+my $template = "./kpgtemplate.html"; # where is the template file?
+my $pathtomarkdown = "./markdown.pl"; #where is the markdown file?
 # END OF CONFIG
+#grabbing variables...
 my $base = $ARGV[0];
-#my $location = $ARGV[1]; NO WAI!
 my $location = $base.".html";
-print "KPG/Kw's Page Generator\n";
-print "Copyright Kwpolska 2010. Licensed on GPLv3.\n";
 #opening files...
 open my $from, '<', $template or die "Can't read the template! $!\n";
 open my $to, '>', $location or die "Can't create the destination file! $!\n";
 open my $basefh, '+<', $base or die "Can't read the title from base file! $!\n";
 #reading title...
-my $title = $basefh;
-$title =~ s/KPGT://;
-$basefh =~ s/KPGT://;
+my @bfile = <$basefh>;
+my $title = $bfile['0'];
 #parsing...
-open my $fh, '-|', $pathtomarkdown, $base or die "Can't parse the content with help of markdown! $!\n"; my $contents = do { local $/; <$fh> };
+open my $fh, '-|', $pathtomarkdown, $base or die "Can't parse the content! Is the path correct? $!\n"; my $contents = do { local $/; <$fh> };
 #I guess we're there.
 while(<$from>) {
 	$_ =~ s/_KPGTITLE_/$title/;
 	$_ =~ s/_KPGCONTENTS_/$contents/;
 	print $to $_;
 }
-print "Your file, $location, has been generated.\n";
+#we're done!
+print "$location\n";

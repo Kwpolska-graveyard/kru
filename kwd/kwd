@@ -1,91 +1,62 @@
 #!/usr/bin/perl
-# KWD/KwDocumentor
+# KWD
 # Part of KRU
 # Copyright Kwpolska 2010. Licensed on GPLv3.
 # Portions copyright Enlik 2010.
 use warnings;
 use strict;
-use Term::ANSIColor qw(:constants);
 # QUOTE-UNQUOTE CONFIG
-my $template = "./kwdtemplate"; # where is the template file?
+my $template = "/home/Kwpolska/kwdtemplate"; # where is the template file?
+my $spacer = "==============\n"; # What is the spacer of the NOTES/USAGE words in your template?
+# REMEMBER: You are free to modify the code. (if you can). 
 # END OF CONFIG
-#colorful UI
-sub pb {
-my $value=shift;
-print BOLD, CYAN, '['.$value.'] ', RESET;
-}
-sub py {
-my $value=shift;
-print BOLD, YELLOW, '['.$value.'] ', RESET;
-}
-sub pg {
-my $value=shift;
-print BOLD, GREEN '['.$value.'] ', RESET;
-}
-pg("*");
-print "KWD/KwDocumentator\n";
-pg("*");
-print "Copyright Kwpolska 2010. Licensed on GPLv3.\n";
-#template:
-#pb("id");
-#print "what\n"
-#py(">");
-#my $value = <STDIN>;
-pb("1");
-print "Main program information\n";
-py(">");
+print "KWD - copyright Kwpolska 2010. Licensed on GPLv3.\n";
+print "1 Main program information\n";
+print "> ";
 my $maininfo = <STDIN>;
-pb("2");
-print "Purpose\n";
-py(">");
+
+print "2 Purpose\n";
+print "> ";
 my $purpose = <STDIN>;
-pb("3");
-print "Install instructions\n";
-py(">");
+
+print "3 Install instructions\n";
+print "> ";
 my $instructions = <STDIN>;
-pb("4");
-print "Additional notes - leave empty if not needed\n";
-py(">");
+
+print "4 Additional notes - leave empty if not needed\n";
+print "> ";
 my $notesbase = <STDIN>;
-pb("5");
-print "Usage instructions - leave empty if not needed\n";
-py(">");
+
+print "5 Usage instructions - leave empty if not needed\n";
+print "> ";
 my $usagebase = <STDIN>;
-pb("6");
-print "Save the file as:\n";
-py(">");
+
+print "6 Save the file as:\n";
+print "> ";
 my $location = <STDIN>;
-pg("*");
-print "Preparing...";
+# that's it.
+
 chomp($maininfo);
-$maininfo =~ s/\\n/\n/;
+$maininfo =~ s/\\n/\n/g;
 chomp($purpose);
-$purpose =~ s/\\n/\n/;
+$purpose =~ s/\\n/\n/g;
 chomp($instructions);
-$instructions =~ s/\\n/\n/;
+$instructions =~ s/\\n/\n/g;
 chomp($location);
 chomp($notesbase);
-$notesbase =~ s/\\n/\n/;
+$notesbase =~ s/\\n/\n/g;
 chomp($usagebase);
-$usagebase =~ s/\\n/\n/;
+$usagebase =~ s/\\n/\n/g;
 my $notes = '';
 #edit the templates to your own
 if ($notesbase ne "") {
-$notes = "\nNOTES:\n==============\n$notesbase\n";
+$notes = "\nNOTES\n$spacer$notesbase\n";
 }
 if ($usagebase ne "") {
-$notes .= "\nUSAGE:\n==============\n$usagebase\n"; #HA BISKY!
+$notes .= "\nUSAGE\n$spacer$usagebase\n"; #HA BISKY!
 }
-pg("*");
-print "Reading the template...";
 open(my $from, '<', $template) or die "FAILED\nCan't read the template! $!\n";
-print " done\n";
-pg("*");
-print "Creating the destination file...";
 open(my $to, '>', $location) or die "FAILED\nCan't create the destination file! $!\n";
-print " done\n";
-pg("*");
-print "Replacing the strings...";
 while(<$from>) {
 	$_ =~ s/_KWDPURPOSE_/$purpose/;
 	$_ =~ s/_KWDMAININFO_/$maininfo/;
@@ -93,6 +64,4 @@ while(<$from>) {
 	$_ =~ s/_KWDNOTES_/$notes/;
 	print $to $_;
 }
-print " done\n";
-pg("*");
-print "Your file has been generated.\n";
+print "done\n";

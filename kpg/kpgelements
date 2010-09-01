@@ -1,3 +1,0 @@
-KPG provides an addon to the Markdown syntax (which is in file syntax, the file is made by Daring Fireball, Markdown's author): The KPGT: information. It can be put at the first line and it will be set as document's title, for example:
-	KPGT:Markdown is awesome!
-	Markdown is the *awesomest* thing in the world.

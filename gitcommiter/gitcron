@@ -1,5 +1,6 @@
 #!/bin/bash
-echo 'Git Utils'
+export PATH='/usr/local/bin:/usr/bin:/bin:/usr/games'
+echo 'Git Commiter'
 echo 'Copyright Kwpolska 2010. Licensed on GPLv3.'
 echo 'Executed: '`date`
 cd ~/git
