@@ -1,13 +1,17 @@
-KPG/Kw's webPage Generator. The smaller brother of KWD.
+KPG. The smaller brother of KWD.
 ==============
 
 PURPOSE
 ==============
-Generating HTML. With help of Markdown, which is awesome.
+Generating HTML with the awesome Markdown.
 
 INSTALLATION
 ==============
-Edit the kpgtemplate.html.
+Edit kpgtemplate.html and the kpg file. Want to use XHTML (evil, evil) - edit Markdown.pl.
+
+NOTES
+==============
+Check out syntax file for other links.
 
 USAGE
 ==============
