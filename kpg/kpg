@@ -7,8 +7,8 @@
 use warnings;
 use strict;
 # QUOTE-UNQUOTE CONFIG
-my $template = "./kpgtemplate.html"; # where is the template file?
-my $pathtomarkdown = "./Markdown.pl"; #where is the markdown file?
+my $template = "/home/Kwpolska/kpgtemplate.html"; # where is the template file?
+my $pathtomarkdown = "/home/Kwpolska/bin/Markdown.pl"; #where is the markdown file?
 # END OF CONFIG
 #grabbing variables...
 my $base = $ARGV[0];
