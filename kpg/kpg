@@ -3,16 +3,19 @@
 # Part of KRU
 # Copyright Kwpolska 2010. Licensed on GPLv3.
 # Portions copyright Enlik 2010.
-#USAGE: ./kpg /location/of/the/markdowned/file
+#USAGE: ./kpg file1 [file2] [file3] (and more)
 use warnings;
 use strict;
+use File::Basename;
 # QUOTE-UNQUOTE CONFIG
 my $template = "/home/Kwpolska/kpgtemplate.html"; # where is the template file?
 my $pathtomarkdown = "/home/Kwpolska/bin/Markdown.pl"; #where is the markdown file?
 # END OF CONFIG
-#grabbing variables...
-my $base = $ARGV[0];
-my $location = $base.".html";
+sub generate {
+my $base=shift;
+#my $basename = basename($base);
+my $basename = fileparse($base, qr/\.[^.]*/);
+my $location = $basename.".html";
 #opening files...
 open my $from, '<', $template or die "Can't read the template! $!\n";
 open my $to, '>', $location or die "Can't create the destination file! $!\n";
@@ -30,3 +33,11 @@ while(<$from>) {
 }
 #we're done!
 print "$location\n";
+}
+my $argc = $#ARGV + 1;
+my $i = 0;
+while ($i != $argc) {
+	my $arg = $ARGV[$i];
+	generate($arg);
+	$i = $i + 1;
+}

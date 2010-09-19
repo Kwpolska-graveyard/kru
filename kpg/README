@@ -15,7 +15,7 @@ Check out syntax file for useful links.
 
 USAGE
 ==============
-./kpg /location/of/markdowned/file - the first line must be the title of your content, the second line shall be the H1 line.
+./kpg /location/of/markdowned/file [file2] [file3] (and more) - the first line must be the title of your content, the second line shall be the H1 line.
 
 COPYRIGHT
 ==============
