@@ -21,11 +21,11 @@ open my $basefh, '+<', $base or die "Can't read the title from base file! $!\n";
 my @bfile = <$basefh>;
 my $title = $bfile['0'];
 #parsing...
-open my $fh, '-|', $pathtomarkdown, $base or die "Can't parse the content! Is the path correct? $!\n"; my $contents = do { local $/; <$fh> };
+open my $fh, '-|', $pathtomarkdown, $base or die "Can't parse the content! Is the path correct? $!\n"; my $content = do { local $/; <$fh> };
 #I guess we're there.
 while(<$from>) {
 	$_ =~ s/_KPGTITLE_/$title/;
-	$_ =~ s/_KPGCONTENTS_/$contents/;
+	$_ =~ s/_KPGCONTENT_/$content/;
 	print $to $_;
 }
 #we're done!
