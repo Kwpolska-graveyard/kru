@@ -13,19 +13,18 @@ my $pathtomarkdown = "/home/Kwpolska/bin/Markdown.pl"; #where is the markdown fi
 # END OF CONFIG
 sub generate {
 my $base=shift;
-#my $basename = basename($base);
 my $basename = fileparse($base, qr/\.[^.]*/);
 my $location = $basename.".html";
-#opening files...
+#opening files
 open my $from, '<', $template or die "Can't read the template! $!\n";
 open my $to, '>', $location or die "Can't create the destination file! $!\n";
 open my $basefh, '+<', $base or die "Can't read the title from base file! $!\n";
-#reading title...
+#this hack is made for reading the title
 my @bfile = <$basefh>;
 my $title = $bfile['0'];
-#parsing...
+#now we can parse it.
 open my $fh, '-|', $pathtomarkdown, $base or die "Can't parse the content! Is the path correct? $!\n"; my $content = do { local $/; <$fh> };
-#I guess we're there.
+#I guess that's it.
 while(<$from>) {
 	$_ =~ s/_KPGTITLE_/$title/;
 	$_ =~ s/_KPGCONTENT_/$content/;
@@ -37,7 +36,7 @@ print "$location\n";
 my $argc = $#ARGV + 1;
 my $i = 0;
 while ($i != $argc) {
-	my $arg = $ARGV[$i];
+	my $arg = $ARGV[$i]; #There was no other way.
 	generate($arg);
 	$i = $i + 1;
 }

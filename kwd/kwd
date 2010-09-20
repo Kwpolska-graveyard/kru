@@ -7,35 +7,30 @@ use warnings;
 use strict;
 # QUOTE-UNQUOTE CONFIG
 my $template = "/home/Kwpolska/kwdtemplate"; # where is the template file?
-my $spacer = "==============\n"; # What is the spacer of the NOTES/USAGE words in your template?
+my $spacer = "==============\n"; # what is the spacer of the NOTES/USAGE?
 # REMEMBER: You are free to modify the code. (if you can). 
 # END OF CONFIG
 print "KWD - copyright Kwpolska 2010. Licensed on GPLv3.\n";
 print "1 Main program information\n";
 print "> ";
 my $maininfo = <STDIN>;
-
 print "2 Purpose\n";
 print "> ";
 my $purpose = <STDIN>;
-
 print "3 Install instructions\n";
 print "> ";
 my $instructions = <STDIN>;
-
 print "4 Additional notes - leave empty if not needed\n";
 print "> ";
 my $notesbase = <STDIN>;
-
 print "5 Usage instructions - leave empty if not needed\n";
 print "> ";
 my $usagebase = <STDIN>;
-
 print "6 Save the file as:\n";
 print "> ";
 my $location = <STDIN>;
 # that's it.
-
+#some chomping is required.
 chomp($maininfo);
 $maininfo =~ s/\\n/\n/g;
 chomp($purpose);
@@ -56,7 +51,8 @@ if ($usagebase ne "") {
 $notes .= "\nUSAGE\n$spacer$usagebase\n"; #HA BISKY!
 }
 open(my $from, '<', $template) or die "FAILED\nCan't read the template! $!\n";
-open(my $to, '>', $location) or die "FAILED\nCan't create the destination file! $!\n";
+open(my $to, '>', $location) or die "FAILED\nCan't create the destination file! $!\n";i
+#that's almost it.
 while(<$from>) {
 	$_ =~ s/_KWDPURPOSE_/$purpose/;
 	$_ =~ s/_KWDMAININFO_/$maininfo/;
