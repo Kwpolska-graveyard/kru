@@ -7,23 +7,38 @@
 use warnings;
 use strict;
 use File::Basename;
+use File::Copy;
 # QUOTE-UNQUOTE CONFIG
 my $template = "/home/Kwpolska/kpgtemplate.html"; # where is the template file?
 my $pathtomarkdown = "/home/Kwpolska/bin/Markdown.pl"; #where is the markdown file?
 # END OF CONFIG
 sub generate {
 my $base=shift;
+my $tmp = $base.".tmp";
 my $basename = fileparse($base, qr/\.[^.]*/);
 my $location = $basename.".html";
 #opening files
 open my $from, '<', $template or die "Can't read the template! $!\n";
 open my $to, '>', $location or die "Can't create the destination file! $!\n";
-open my $basefh, '+<', $base or die "Can't read the title from base file! $!\n";
-#this hack is made for reading the title
+open my $basefh, '<', $base or die "Can't read the base file! $!\n";
+copy($base, $tmp) or die "Can't copy the base file! $!\n";
+open my $tmpfh, '+<', $tmp, or die "Can't read the temp file! $!\n";
+#reading the title
 my @bfile = <$basefh>;
 my $title = $bfile['0'];
+#$title = s/\n//g;
+#but that doesn't mean that it's done.
+if ( $bfile[1] eq '=' x length $bfile[0] ) { #thx #perl!
+print "used";
+use Tie::File;
+tie my @array, 'Tie::File', $tmp or die "$!\n";
+shift @array;
+shift @array; #do it twice...
+untie @array;
+}
 #now we can parse it.
-open my $fh, '-|', $pathtomarkdown, $base or die "Can't parse the content! Is the path correct? $!\n"; my $content = do { local $/; <$fh> };
+open my $fh, '-|', $pathtomarkdown, $tmp or die "Can't parse the content! Is the path correct? $!\n"; my $content = do { local $/; <$fh> };
+unlink($tmp) or die "Can't remove the temp file! $!\n";
 #I guess that's it.
 while(<$from>) {
 	$_ =~ s/_KPGTITLE_/$title/;
