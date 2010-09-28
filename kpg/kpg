@@ -28,7 +28,7 @@ my @bfile = <$basefh>;
 my $title = $bfile['0'];
 #$title = s/\n//g;
 #but that doesn't mean that it's done.
-if ( $bfile[1] eq '=' x length $bfile[0] ) { #thx #perl!
+if ( $bfile[1] eq '=' x length $bfile[0] ) {
 print "used";
 use Tie::File;
 tie my @array, 'Tie::File', $tmp or die "$!\n";
