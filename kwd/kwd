@@ -45,10 +45,10 @@ $usagebase =~ s/\\n/\n/g;
 my $notes = '';
 #edit the templates to your own
 if ($notesbase ne "") {
-$notes = "\nNOTES\n$spacer$notesbase\n";
+	$notes = "\nNOTES\n$spacer$notesbase\n";
 }
 if ($usagebase ne "") {
-$notes .= "\nUSAGE\n$spacer$usagebase\n"; #HA BISKY!
+	$notes .= "\nUSAGE\n$spacer$usagebase\n"; #HA BISKY!
 }
 open(my $from, '<', $template) or die "FAILED\nCan't read the template! $!\n";
 open(my $to, '>', $location) or die "FAILED\nCan't create the destination file! $!\n";i
