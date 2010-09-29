@@ -5,29 +5,31 @@
 # Portions copyright Enlik 2010.
 use warnings;
 use strict;
+
 # QUOTE-UNQUOTE CONFIG
 my $template = "/home/Kwpolska/kwdtemplate"; # where is the template file?
 my $spacer = "==============\n"; # what is the spacer of the NOTES/USAGE?
 # REMEMBER: You are free to modify the code. (if you can). 
 # END OF CONFIG
+
 print "KWD - copyright Kwpolska 2010. Licensed on GPLv3.\n";
-print "1 Main program information\n";
-print "> ";
+print "1 | Main program information\n";
+print "> | ";
 my $maininfo = <STDIN>;
-print "2 Purpose\n";
-print "> ";
+print "2 | Purpose\n";
+print "> | ";
 my $purpose = <STDIN>;
-print "3 Install instructions\n";
-print "> ";
+print "3 | Install instructions\n";
+print "> | ";
 my $instructions = <STDIN>;
-print "4 Additional notes - leave empty if not needed\n";
-print "> ";
+print "4 | Additional notes - leave empty if not needed\n";
+print "> | ";
 my $notesbase = <STDIN>;
-print "5 Usage instructions - leave empty if not needed\n";
-print "> ";
+print "5 | Usage instructions - leave empty if not needed\n";
+print "> | ";
 my $usagebase = <STDIN>;
-print "6 Save the file as:\n";
-print "> ";
+print "6 | Save the file as:\n";
+print "> | ";
 my $location = <STDIN>;
 # that's it.
 #some chomping is required.
@@ -60,4 +62,4 @@ while(<$from>) {
 	$_ =~ s/_KWDNOTES_/$notes/;
 	print $to $_;
 }
-print "done\n";
+print $location."\n";
