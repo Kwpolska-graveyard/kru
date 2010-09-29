@@ -25,7 +25,6 @@ sub generate {
 	open my $from, '<', $template or die "Can't read the template! $!\n";
 	open my $to, '>', $location or die "Can't create the destination file! $!\n";
 	open my $basefh, '<', $base or die "Can't read the base file! $!\n";
-	copy($base, $tmp) or die "Can't copy the base file! $!\n";
 	open my $tmpfh, '+<', $tmp, or die "Can't read the temp file! $!\n";
 
 #reading the title
@@ -33,10 +32,7 @@ sub generate {
 	my $title = $bfile['0'];
 
 #but that doesn't mean that it's done.
-	use Tie::File;
-	tie my @array, 'Tie::File', $tmp or die "$!\n";
-	shift @array;
-	untie @array;
+	shift @bfile;
 
 #now we can parse it.
 	open my $fh, '-|', $pathtomarkdown, $tmp or die "Can't parse the content! Is the path correct? $!\n"; my $content = do { local $/; <$fh> };
