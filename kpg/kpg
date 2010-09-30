@@ -25,14 +25,16 @@ sub generate {
 	open my $from, '<', $template or die "Can't read the template! $!\n";
 	open my $to, '>', $location or die "Can't create the destination file! $!\n";
 	open my $basefh, '<', $base or die "Can't read the base file! $!\n";
-	open my $tmpfh, '+<', $tmp, or die "Can't read the temp file! $!\n";
+	open my $tmpfh, '>', $tmp, or die "Can't read the temp file! $!\n";
 
 #reading the title
 	my @bfile = <$basefh>;
 	my $title = $bfile['0'];
+	$title =~ s/\n//g;
 
 #but that doesn't mean that it's done.
 	shift @bfile;
+	print $tmpfh join("\n", @bfile);
 
 #now we can parse it.
 	open my $fh, '-|', $pathtomarkdown, $tmp or die "Can't parse the content! Is the path correct? $!\n"; my $content = do { local $/; <$fh> };
