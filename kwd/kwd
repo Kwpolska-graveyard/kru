@@ -7,32 +7,43 @@ use warnings;
 use strict;
 
 # QUOTE-UNQUOTE CONFIG
-my $template = "/home/Kwpolska/kwdtemplate"; # where is the template file?
+my $dir = "/home/Kwpolska/kwd/"; # where is the KWD directory?
 my $spacer = "==============\n"; # what is the spacer of the NOTES/USAGE?
+my $defcopy = "gplv3"; # what is the default copyright note?
 # REMEMBER: You are free to modify the code. (if you can). 
 # END OF CONFIG
 
 print "KWD - copyright Kwpolska 2010. Licensed on GPLv3.\n";
+
 print "1 | Main program information\n";
 print "> | ";
 my $maininfo = <STDIN>;
+
 print "2 | Purpose\n";
 print "> | ";
 my $purpose = <STDIN>;
+
 print "3 | Install instructions\n";
 print "> | ";
 my $instructions = <STDIN>;
+
 print "4 | Additional notes - leave empty if not needed\n";
 print "> | ";
 my $notesbase = <STDIN>;
+
 print "5 | Usage instructions - leave empty if not needed\n";
 print "> | ";
 my $usagebase = <STDIN>;
-print "6 | Save the file as:\n";
+
+print "6 | Copyright note - leave empty for default\n";
+print "> | ";
+my $license = <STDIN>
+
+print "7 | Save the file as:\n";
 print "> | ";
 my $location = <STDIN>;
-# that's it.
-#some chomping is required.
+
+#ignore this, random crap...
 chomp($maininfo);
 $maininfo =~ s/\\n/\n/g;
 chomp($purpose);
@@ -44,7 +55,9 @@ chomp($notesbase);
 $notesbase =~ s/\\n/\n/g;
 chomp($usagebase);
 $usagebase =~ s/\\n/\n/g;
+chomp($license);
 my $notes = '';
+
 #edit the templates to your own
 if ($notesbase ne "") {
 	$notes = "\nNOTES\n$spacer$notesbase\n";
@@ -52,14 +65,25 @@ if ($notesbase ne "") {
 if ($usagebase ne "") {
 	$notes .= "\nUSAGE\n$spacer$usagebase\n"; #HA BISKY!
 }
-open(my $from, '<', $template) or die "FAILED\nCan't read the template! $!\n";
-open(my $to, '>', $location) or die "FAILED\nCan't create the destination file! $!\n";i
+
+#finally, we can open the up.
+if ($license eq "") {
+	$license = $dir."lic/".$defcopy;
+}
+open(my $from, '<', $dir."template") or die "Can't read the template! $!\n";
+open(my $to, '>', $location) or die "Can't create the destination file! $!\n";
+open(my $lic, '<', $license) or die "Can't open the copyright note! $!\n";
+
+#reading the copyright note...
+@copy = <$lic>;
+my $copyright = join('\n', @copy);
 #that's almost it.
 while(<$from>) {
 	$_ =~ s/_KWDPURPOSE_/$purpose/;
 	$_ =~ s/_KWDMAININFO_/$maininfo/;
 	$_ =~ s/_KWDINSTRUCTIONS_/$instructions/;
 	$_ =~ s/_KWDNOTES_/$notes/;
+	$_ =~ s/_KWDCOPYRIGHT_/$copyright/;
 	print $to $_;
 }
 print $location."\n";
