@@ -7,7 +7,7 @@ use warnings;
 use strict;
 
 # QUOTE-UNQUOTE CONFIG
-my $dir = "/home/Kwpolska/kwd/"; # where is the KWD directory?
+my $dir = "/home/Kwpolska/kwd/"; # where is the KWD directory? (include trailing slash)
 my $spacer = "==============\n"; # what is the spacer of the NOTES/USAGE?
 my $defcopy = "gplv3"; # what is the default copyright note?
 # REMEMBER: You are free to modify the code. (if you can). 
