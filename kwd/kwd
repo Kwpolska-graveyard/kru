@@ -37,7 +37,7 @@ my $usagebase = <STDIN>;
 
 print "6 | Copyright note - leave empty for default\n";
 print "> | ";
-my $license = <STDIN>
+my $license = <STDIN>;
 
 print "7 | Save the file as:\n";
 print "> | ";
@@ -75,7 +75,7 @@ open(my $to, '>', $location) or die "Can't create the destination file! $!\n";
 open(my $lic, '<', $license) or die "Can't open the copyright note! $!\n";
 
 #reading the copyright note...
-@copy = <$lic>;
+my @copy = <$lic>;
 my $copyright = join('\n', @copy);
 #that's almost it.
 while(<$from>) {
