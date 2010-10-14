@@ -1,0 +1,38 @@
+#!/usr/bin/perl
+# KIW
+# Part of KRU
+# Copyright Kwpolska 2010. Licensed on GPLv3.
+#USAGE: ./kpg file1 [file2] [file3] (and more)
+
+# QUOTE-UNQUOTE CONFIG
+my $watermark = "/home/Kwpolska/watermark.png"; # where is the watermark image?
+# END OF CONFIG
+
+use warnings;
+use strict;
+use File::Basename;
+use File::Copy;
+use Image::Magick;
+
+sub generate {
+	my $basei = shift;
+	my $image = new Image::Magick;
+	my $wmark = new Image::Magick;
+	my $basename = fileparse($basei, qr/\.[^.]*/)."_w.png";
+	$image = Read($basei);
+	$image = Read($watermark);
+	$image->Composite(image   => $wmark, 
+							compose => "Over", 
+							gravity => "SouthEast", 
+							dissolve=> 30, 
+							opacity => 15);
+	$image->Write($basename);
+}
+
+my $argc = $#ARGV + 1;
+my $i = 0;
+while ($i != $argc) {
+	my $arg = $ARGV[$i]; #There was no other way.
+		generate($arg);
+	$i = $i + 1;
+}

@@ -76,7 +76,7 @@ open(my $lic, '<', $license) or die "Can't open the copyright note! $!\n";
 
 #reading the copyright note...
 my @copy = <$lic>;
-my $copyright = join('\n', @copy);
+my $copyright = join('', @copy);
 #that's almost it.
 while(<$from>) {
 	$_ =~ s/_KWDPURPOSE_/$purpose/;
