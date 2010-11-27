@@ -86,4 +86,4 @@ while(<$from>) {
 	$_ =~ s/_KWDCOPYRIGHT_/$copyright/;
 	print $to $_;
 }
-print $location."\n";
+print "Created file: ".$location."\n";
