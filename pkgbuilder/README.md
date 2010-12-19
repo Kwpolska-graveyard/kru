@@ -2,15 +2,15 @@ PKGBUILDer. Not an AUR helper.
 ==============
 
 PURPOSE
-==============
+-------
 This tool helps installing packages from AUR (Arch User Repository) without using a helper.
 
 INSTALLATION
-==============
+------------
 Copy it to /usr/bin or ~/bin. You shall use it in a special directory.
 
 COPYRIGHT
-==============
+---------
 Copyright (C) 2010 Kwpolska.
 
 This program is free software: you can redistribute it and/or modify

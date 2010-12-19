@@ -2,15 +2,15 @@ KWD. First steps in Perl.
 ==============
 
 PURPOSE
-==============
+-------
 This was made for speeding up making all the READMEs.
 
 INSTALLATION
-==============
+------------
 Check out INSTALL.
 
 COPYRIGHT
-==============
+---------
 Copyright (C) 2010 Kwpolska.
 
 This program is free software: you can redistribute it and/or modify

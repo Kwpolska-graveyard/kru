@@ -2,17 +2,17 @@ KwInstaller. Easy as 1-2-3.
 ==============
 
 PURPOSE
-==============
+-------
 Made for kwpastebin. Small installer. And nothing else.
 
 INSTALLATION
-==============
+------------
 1. Edit it.
 2. Copy it.
 3. Try it.
 
 COPYRIGHT
-==============
+---------
 Copyright (C) 2010 Kwpolska.
 
 This program is free software: you can redistribute it and/or modify
