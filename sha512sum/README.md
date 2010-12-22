@@ -1,4 +1,4 @@
-sha512sum for PHP.
+sha512sum for PHP
 ==============
 
 PURPOSE
