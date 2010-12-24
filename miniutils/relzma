@@ -1,0 +1,3 @@
+#!/bin/bash
+lzma -devv "$1.tar.lzma"
+xz -zevv "$1.tar"
