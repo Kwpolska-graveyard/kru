@@ -63,7 +63,7 @@ if ($notesbase ne "") {
    $notes = "\nNOTES\n$spacer$notesbase\n";
 }
 if ($usagebase ne "") {
-   $notes .= "\nUSAGE\n$spacer$usagebase\n"; #HA BISKY!
+   $notes .= "\nUSAGE\n$spacer$usagebase\n"; #HA BISKY! cheats ftw
 }
 
 #finally, we can open the up.
