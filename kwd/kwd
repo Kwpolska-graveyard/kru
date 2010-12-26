@@ -60,15 +60,17 @@ my $notes = '';
 
 #edit the templates to your own
 if ($notesbase ne "") {
-	$notes = "\nNOTES\n$spacer$notesbase\n";
+   $notes = "\nNOTES\n$spacer$notesbase\n";
 }
 if ($usagebase ne "") {
-	$notes .= "\nUSAGE\n$spacer$usagebase\n"; #HA BISKY!
+   $notes .= "\nUSAGE\n$spacer$usagebase\n"; #HA BISKY!
 }
 
 #finally, we can open the up.
 if ($license eq "") {
-	$license = $dir."lic/".$defcopy;
+   $license = $dir."lic/".$defcopy;
+} else {
+   $license = $dir."lic/".$license;
 }
 open(my $from, '<', $dir."template") or die "Can't read the template! $!\n";
 open(my $to, '>', $location) or die "Can't create the destination file! $!\n";
@@ -79,11 +81,11 @@ my @copy = <$lic>;
 my $copyright = join('', @copy);
 #that's almost it.
 while(<$from>) {
-	$_ =~ s/_KWDPURPOSE_/$purpose/;
-	$_ =~ s/_KWDMAININFO_/$maininfo/;
-	$_ =~ s/_KWDINSTRUCTIONS_/$instructions/;
-	$_ =~ s/_KWDNOTES_/$notes/;
-	$_ =~ s/_KWDCOPYRIGHT_/$copyright/;
-	print $to $_;
+   $_ =~ s/_KWDPURPOSE_/$purpose/;
+   $_ =~ s/_KWDMAININFO_/$maininfo/;
+   $_ =~ s/_KWDINSTRUCTIONS_/$instructions/;
+   $_ =~ s/_KWDNOTES_/$notes/;
+   $_ =~ s/_KWDCOPYRIGHT_/$copyright/;
+   print $to $_;
 }
 print "Created file: ".$location."\n";
