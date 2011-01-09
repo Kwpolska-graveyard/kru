@@ -8,14 +8,9 @@ use warnings;
 use strict;
 use LWP::Simple;
 use Archive::Any;
-use Term::ANSIColor;
+use Term::ANSIColor qw(:constants);
 sub info {
-        print color 'bold green';
-        print "==> ";
-        print color 'reset';
-        print color 'bold';
-        print shift."\n";
-        print color 'reset';
+        print BOLD, GREEN, "==> ", RESET, BOLD, shift."\n", RESET;
 }
 sub generate {
         my $pkg=shift;
