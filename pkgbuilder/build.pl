@@ -9,9 +9,20 @@ use strict;
 use LWP::Simple;
 use Archive::Any;
 use Term::ANSIColor qw(:constants);
+
+$SIG{'INT' } = 'freset';  $SIG{'QUIT'} = 'freset';
+$SIG{'HUP' } = 'freset';  $SIG{'TRAP'} = 'freset';
+$SIG{'ABRT'} = 'freset';  $SIG{'STOP'} = 'freset';
+
 sub info {
         print BOLD, GREEN, "==> ", RESET, BOLD, shift."\n", RESET;
 }
+
+sub freset {
+        print RESET, BOLD, "Okay!\nExiting right now.\n", RESET;
+        exit(1);
+}
+
 sub generate {
         my $pkg=shift;
         info("Building package ".$pkg."...");
