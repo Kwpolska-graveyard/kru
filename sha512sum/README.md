@@ -7,4 +7,4 @@ A tool for making SHA512 sums.
 
 COPYRIGHT
 ---------
-This software is licensed on Public Domain.
+This software is licensed under Public Domain.

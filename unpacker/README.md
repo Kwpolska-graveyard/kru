@@ -11,4 +11,4 @@ Copy it into a directory inside $PATH.
 
 COPYRIGHT
 ---------
-This software is licensed on Public Domain.
+This software is licensed under Public Domain.
