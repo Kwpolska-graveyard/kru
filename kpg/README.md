@@ -7,7 +7,7 @@ Generating HTML with the awesome Markdown.
 
 INSTALLATION
 ------------
-Edit kpgtemplate.html and the kpg file. Want to use XHTML (you shall not!) - edit Markdown.pl.
+Edit kpgtemplate.html and run configure. Want to use XHTML (you shall not!) - edit Markdown.pl.
 
 NOTES
 -----
