@@ -1,17 +1,14 @@
 #!/usr/bin/perl
 # KWD
 # Part of KRU
-# Copyright Kwpolska 2010. Licensed on GPLv3.
+# Copyright Kwpolska 2010. Licensed under GPLv3.
 # Portions copyright Enlik 2010.
+
 use warnings;
 use strict;
-
-# QUOTE-UNQUOTE CONFIG
-my $dir = "/home/Kwpolska/kwd/"; # where is the KWD directory? (include trailing slash)
-my $spacer = "-----\n"; # what is the spacer of the NOTES/USAGE?
-my $defcopy = "gplv3"; # what is the default copyright note?
-# REMEMBER: You are free to modify the code. (if you can). 
-# END OF CONFIG
+do "$ENV{HOME}/.kwd/kwdrc";
+my $dir = "$ENV{HOME}/.kwd/";
+# REMEMBER: You are free to modify the code.
 
 print "KWD - copyright Kwpolska 2010. Licensed on GPLv3.\n";
 

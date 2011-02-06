@@ -5,15 +5,11 @@
 # Portions copyright Enlik 2010.
 #USAGE: ./kpg file1 [file2] [file3] (and more)
 
-# QUOTE-UNQUOTE CONFIG
-my $template = "/home/Kwpolska/kpgtemplate.html"; # where is the template file?
-my $pathtomarkdown = "/home/Kwpolska/bin/Markdown.pl"; #where is the markdown file?
-# END OF CONFIG
-
 use warnings;
 use strict;
 use File::Basename;
 use File::Copy;
+do "$ENV{HOME}/.kpgrc";
 
 sub generate {
    my $base=shift;

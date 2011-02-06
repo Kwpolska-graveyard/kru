@@ -1,5 +1,0 @@
-#!/bin/sh
-mkdir ~/kwd
-cp template ~/kwd/
-mkdir ~/kwd/lic
-cp gplv3 ~/kwd/lic/
