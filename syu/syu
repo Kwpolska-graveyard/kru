@@ -4,53 +4,53 @@
 
 #f(1) syuhelp
 function syuhelp {
-echo "Kw's Maintenance Script (syu)"
-echo "Copyright Kwpolska 2010. Licensed under GPLv3."
-echo "Syntax: syu [argument]"
-echo "no   args    Perform an update (NTP + pacman -Syu + clyde -Syu --aur)."
-echo "-a --noaur   Disable clyde from the update process."
-echo "-c --cron    Perform a cron-friendly update (NTP + pacman -Sy)."
-echo "-h --help    Show this message."
-echo "-l --lock    Unlock pacman database."
-echo "-r --reflect Run reflector."
-echo "-t --time    Update time."
-exit
+   echo "Kw's Maintenance Script (syu)"
+   echo "Copyright Kwpolska 2010. Licensed under GPLv3."
+   echo "Syntax: syu [argument]"
+   echo "no   args    Perform an update (NTP + pacman -Syu + clyde -Syu --aur)."
+   echo "-a --noaur   Disable clyde from the update process."
+   echo "-c --cron    Perform a cron-friendly update (NTP + pacman -Sy)."
+   echo "-h --help    Show this message."
+   echo "-l --lock    Unlock pacman database."
+   echo "-r --reflect Run reflector."
+   echo "-t --time    Update time."
+   exit
 }
 
 #f(2) syunlock
 function syunlock {
-rm /var/lib/pacman/db.lck
-echo "Database unlocked."
-exit
+   rm /var/lib/pacman/db.lck
+   echo "Database unlocked."
+   exit
 }
 
 #f(3) syucron
 function syucron {
-ntpdate pl.pool.ntp.org > /dev/null
-pacman -Sy > /dev/null
-exit
+   ntpdate pl.pool.ntp.org > /dev/null
+   pacman -Sy > /dev/null
+   exit
 }
 
 #f(4) syutime
 function syutime {
-ntpdate pl.pool.ntp.org
-exit
+   ntpdate pl.pool.ntp.org
+   exit
 }
 
 #f(5) syureflect
 function syureflect {
-echo "Running reflector. This might take up to 10 minutes (or even longer)."
-time reflector -f 10 -ro /etc/pacman.d/mirrorlist
-echo "Please run the script once again without --reflect to update."
+   echo "Running reflector. This might take up to 10 minutes (or even longer)."
+   time reflector -f 10 -ro /etc/pacman.d/mirrorlist
+   echo "Please run the script once again without --reflect to update."
 }
 
 case "$1" in 
- "-a" | "--noaur")   syuaur="n"  ;;
- "-c" | "--cron")    syucron     ;;
- "-h" | "--help")    syuhelp     ;;
- "-l" | "--lock")    syunlock    ;;
- "-r" | "--reflect") syureflect  ;;
- "-t" | "--time")    syutime     ;;
+"-a" | "--noaur")   syuaur="n"  ;;
+"-c" | "--cron")    syucron     ;;
+"-h" | "--help")    syuhelp     ;;
+"-l" | "--lock")    syunlock    ;;
+"-r" | "--reflect") syureflect  ;;
+"-t" | "--time")    syutime     ;;
 esac
 
 pacman -Syu
