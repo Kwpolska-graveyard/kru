@@ -1,3 +1,0 @@
-#!/bin/bash
-gzip -dv "$1.tar.gz"
-xz -zevv "$1.tar"
