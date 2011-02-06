@@ -1,0 +1,2 @@
+The KPG is awesome!
+The KPG is really awesome. And the best thing in the whole project is: you don't need any HTML with it. Just write in Markdown. That's it. No stupid HTML. Just Markdown syntax. And if we're talking about the syntax, check out the file called *syntax*.

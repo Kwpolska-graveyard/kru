@@ -1,0 +1,88 @@
+#!/usr/bin/perl
+# KWD
+# Part of KRU
+# Copyright Kwpolska 2010. Licensed under GPLv3.
+# Portions copyright Enlik 2010.
+
+use warnings;
+use strict;
+do "$ENV{HOME}/.kwd/kwdrc";
+my $dir = "$ENV{HOME}/.kwd/";
+# REMEMBER: You are free to modify the code.
+
+print "KWD - copyright Kwpolska 2010. Licensed on GPLv3.\n";
+
+print "1 | Main program information\n";
+print "> | ";
+my $maininfo = <STDIN>;
+
+print "2 | Purpose\n";
+print "> | ";
+my $purpose = <STDIN>;
+
+print "3 | Install instructions\n";
+print "> | ";
+my $instructions = <STDIN>;
+
+print "4 | Additional notes - leave empty if not needed\n";
+print "> | ";
+my $notesbase = <STDIN>;
+
+print "5 | Usage instructions - leave empty if not needed\n";
+print "> | ";
+my $usagebase = <STDIN>;
+
+print "6 | Copyright note - leave empty for default\n";
+print "> | ";
+my $license = <STDIN>;
+
+print "7 | Save the file as:\n";
+print "> | ";
+my $location = <STDIN>;
+
+#ignore this, random crap...
+chomp($maininfo);
+$maininfo =~ s/\\n/\n/g;
+chomp($purpose);
+$purpose =~ s/\\n/\n/g;
+chomp($instructions);
+$instructions =~ s/\\n/\n/g;
+chomp($location);
+chomp($notesbase);
+$notesbase =~ s/\\n/\n/g;
+chomp($usagebase);
+$usagebase =~ s/\\n/\n/g;
+chomp($license);
+my $notes = '';
+
+#edit the templates to your own
+if ($notesbase ne "") {
+   $notes = "\nNOTES\n$spacer$notesbase\n";
+}
+if ($usagebase ne "") {
+   $notes .= "\nUSAGE\n$spacer$usagebase\n"; #HA BISKY! cheats ftw
+}
+
+#finally, we can open the up.
+if ($license eq "") {
+   $license = $dir."lic/".$defcopy;
+} else {
+   $license = $dir."lic/".$license;
+}
+open(my $from, '<', $dir."template") or die "Can't read the template! $!\n";
+open(my $to, '>', $location) or die "Can't create the destination file! $!\n";
+open(my $lic, '<', $license) or die "Can't open the copyright note! $!\n";
+
+#reading the copyright note...
+my @copy = <$lic>;
+my $copyright = join('', @copy);
+#that's almost it.
+while(<$from>) {
+   $_ =~ s/_KWDPURPOSE_/$purpose/;
+   $_ =~ s/_KWDMAININFO_/$maininfo/;
+   $_ =~ s/_KWDINSTRUCTIONS_/$instructions/;
+   $_ =~ s/_KWDNOTES_/$notes/;
+   $_ =~ s/_KWDCOPYRIGHT_/$copyright/;
+   print $to $_;
+}
+print "Created file: ".$location."\n";

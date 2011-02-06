@@ -1,0 +1,1 @@
+Visit [Daring Fireball](http://daringfireball.net)'s [Markdown Basics](http://daringfireball.net/projects/markdown/basics) and [Markdown Syntax](http://daringfireball.net/projects/markdown/syntax) for help with Markdown syntax.
