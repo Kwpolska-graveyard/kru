@@ -6,8 +6,15 @@
 
 use warnings;
 use strict;
-do "$ENV{HOME}/.kwd/kwdrc";
+#use lib '/home/Kwpolska/local/share/perl/5.10.1';
+use Config::Tiny;
 my $dir = "$ENV{HOME}/.kwd/";
+my $config = Config::Tiny->new;
+$config = Config::Tiny->read($dir."kwdrc.ini");
+my $defcopy = $config->{_}->{defcopy};
+my $spacer = $config->{_}->{spacer};
+
+
 # REMEMBER: You are free to modify the code.
 
 print "KWD - copyright Kwpolska 2010. Licensed on GPLv3.\n";

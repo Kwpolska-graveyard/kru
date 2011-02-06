@@ -9,7 +9,13 @@ use warnings;
 use strict;
 use File::Basename;
 use File::Copy;
-do "$ENV{HOME}/.kpgrc";
+#use lib '/home/Kwpolska/local/share/perl/5.10.1';
+use Config::Tiny;
+
+my $config = Config::Tiny->new;
+$config = Config::Tiny->read( "$ENV{HOME}/.kpgrc.ini" );
+my $markdown = $config->{_}->{markdown};
+my $template = $config->{_}->{template};
 
 sub generate {
    my $base=shift;
@@ -33,7 +39,7 @@ sub generate {
    print $tmpfh join("\n", @bfile);
 
 #now we can parse it.
-   open my $fh, '-|', $pathtomarkdown, $tmp or die "Can't parse the content! Is the path correct? $!\n"; my $content = do { local $/; <$fh> };
+   open my $fh, '-|', $markdown, $tmp or die "Can't parse the content! Is the path correct? $!\n"; my $content = do { local $/; <$fh> };
    unlink($tmp) or die "Can't remove the temp file! $!\n";
 
 #I guess that's it.
@@ -47,8 +53,4 @@ sub generate {
 
 my $argc = $#ARGV + 1;
 my $i = 0;
-while ($i != $argc) {
-   my $arg = $ARGV[$i]; #There was no other way.
-      generate($arg);
-   $i = $i + 1;
-}
+
