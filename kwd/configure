@@ -5,9 +5,9 @@ mkdir ~/.kwd/lic
 cp gplv3 ~/.kwd/lic/
 
 echo 'What is the spacer of NOTES/USAGE? (eg. -----)'
-read spacer -p '> '
+read spacer
 echo 'What is the default copyright note file?'
-read defcopy -p '> '
+read defcopy
 echo 'my $spacer = "'$spacer'";
 my $defcopy = "'$defcopy'";' > ~/.kwd/kwdrc
 echo "KWD was successfully configured. Yay!"
