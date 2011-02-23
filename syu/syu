@@ -8,7 +8,7 @@ function syuhelp {
 echo "Kw's Maintenance Script - Arch Linux Release"
 echo "Copyright Kwpolska 2010. Licensed under GPLv3."
 echo "Syntax: syu [argument]"
-echo "no   args     Perform an update (pacman -Syu + clyde -Syu --aur)"
+echo "no arguments  Perform an update (pacman -Syu + clyde -Syu --aur)"
 echo "-a --noaur    Disable clyde from the update process"
 echo "-c --cron     Perform a cron-friendly update (NTP + pacman -Sy)"
 echo "-h --help     Show this message."
