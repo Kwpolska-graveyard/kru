@@ -28,14 +28,14 @@ exit
 
 #f(3) syucron
 function syucron {
-sntp pl.pool.ntp.org > /dev/null
+ntpdate pl.pool.ntp.org > /dev/null
 pacman -Sy > /dev/null
 exit
 }
 
 #f(4) syutime
 function syutime {
-sntp pl.pool.ntp.org
+ntpdate pl.pool.ntp.org
 exit
 }
 
