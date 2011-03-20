@@ -8,8 +8,8 @@ function syuhelp {
 echo "Kw's Maintenance Script - Arch Linux Release"
 echo "Copyright Kwpolska 2010. Licensed under GPLv3."
 echo "Syntax: syu [argument]"
-echo "no arguments  Perform an update (pacman -Syu + clyde -Syu --aur)"
-echo "-a --noaur    Disable clyde from the update process"
+echo "no arguments  Perform an update (pacman -Syu + packer -Syu)"
+echo "-a --noaur    Disable packer from the update process"
 echo "-c --cron     Perform a cron-friendly update (NTP + pacman -Sy)"
 echo "-h --help     Show this message."
 echo "-l --lock     Unlock pacman database."
@@ -45,7 +45,7 @@ echo "Running reflector. This might take up to 10 minutes (or even longer)."
 time reflector -f 10 -ro /etc/pacman.d/mirrorlist
 echo "Reflecting finished. Updating..."
 pacman -Syyu
-clyde -Syyu --aur
+packer -Syyu
 exit
 }
 
@@ -66,5 +66,5 @@ esac
 
 pacman -Syu
 if [ "$syuaur" != "n" ]; then
-clyde -Syu --aur
+packer -Syu
 fi
