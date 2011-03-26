@@ -1,70 +1,72 @@
-#!/bin/bash
+#!/bin/zsh
 #Kw's Maintenance Script
 #Arch Linux Release
-#Copyright Kwpolska 2010. Licensed under GPLv3.
+#Copyright Kwpolska 2010, 2011. Licensed under GPLv3.
 
 #f(1) syuhelp
 function syuhelp {
-echo "Kw's Maintenance Script - Arch Linux Release"
-echo "Copyright Kwpolska 2010. Licensed under GPLv3."
-echo "Syntax: syu [argument]"
-echo "no arguments  Perform an update (pacman -Syu + packer -Syu)"
-echo "-a --noaur    Disable packer from the update process"
-echo "-c --cron     Perform a cron-friendly update (NTP + pacman -Sy)"
-echo "-h --help     Show this message."
-echo "-l --lock     Unlock pacman database."
-echo "-o --optimize Optimizes the database."
-echo "-r --reflect  Run reflector."
-echo "-t --time     Update time."
-exit
+    echo "Kw's Maintenance Script - Arch Linux Release"
+    echo "Copyright Kwpolska 2010. Licensed under GPLv3."
+    echo "Syntax: syu [argument]"
+    echo "no arguments  Perform an update (pacman -Syu + packer -Syu)"
+    echo "-a --noaur    Disable packer from the update process"
+    echo "-c --cron     Perform a cron-friendly update (NTP + pacman -Sy)"
+    echo "-h --help     Show this message."
+    echo "-l --lock     Unlock pacman database."
+    echo "-o --optimize Optimizes the database."
+    echo "-r --reflect  Run reflector."
+    echo "-t --time     Update time."
+    exit
 }
 
 #f(2) syunlock
 function syunlock {
-rm /var/lib/pacman/db.lck
-echo "Database unlocked."
-exit
+    rm /var/lib/pacman/db.lck
+    echo "Database unlocked."
+    exit
 }
 
 #f(3) syucron
 function syucron {
-ntpdate pl.pool.ntp.org > /dev/null
-pacman -Sy > /dev/null
-exit
+    ntpdate pl.pool.ntp.org > /dev/null
+    pacman -Sy > /dev/null
+    exit
 }
 
 #f(4) syutime
-function syutime {
-ntpdate pl.pool.ntp.org
-exit
+    function syutime {
+    ntpdate pl.pool.ntp.org
+    exit
 }
 
 #f(5) syureflect
-function syureflect {
-echo "Running reflector. This might take up to 10 minutes (or even longer)."
-time reflector -f 10 -ro /etc/pacman.d/mirrorlist
-echo "Reflecting finished. Updating..."
-pacman -Syyu
-packer -Syyu
-exit
+    function syureflect {
+    echo "Running reflector."
+    reflector -p http -c Germany > /etc/pacman.d/mirrolist
+    reflector -p http -c United\ States >> /etc/pacman.d/mirrorlist
+    #time reflector -f 10 -ro /etc/pacman.d/mirrorlist
+    echo "Reflecting finished. Updating..."
+    pacman -Syyu
+    packer -Syyu
+    exit
 }
 
 #f(6) syuoptimize
 function syuoptimize {
-pacman-optimize
+    pacman-optimize
 }
 
 case "$1" in 
- "-a" | "--noaur")    syuaur="n"  ;;
- "-c" | "--cron")     syucron     ;;
- "-h" | "--help")     syuhelp     ;;
- "-l" | "--lock")     syunlock    ;;
- "-o" | "--optimize") syuoptimize ;;
- "-r" | "--reflect")  syureflect  ;;
- "-t" | "--time")     syutime     ;;
+    "-a" | "--noaur")    syuaur="n"  ;;
+    "-c" | "--cron")     syucron     ;;
+    "-h" | "--help")     syuhelp     ;;
+    "-l" | "--lock")     syunlock    ;;
+    "-o" | "--optimize") syuoptimize ;;
+    "-r" | "--reflect")  syureflect  ;;
+    "-t" | "--time")     syutime     ;;
 esac
 
 pacman -Syu
 if [ "$syuaur" != "n" ]; then
-packer -Syu
+    packer -Syu
 fi
