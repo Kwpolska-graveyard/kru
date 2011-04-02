@@ -42,7 +42,8 @@ function syucron {
 #f(5) syureflect
     function syureflect {
     echo "Running reflector."
-    reflector -p http -c Germany > /etc/pacman.d/mirrolist
+    reflector -p http -c Any > /etc/pacman.d/mirrorlist
+    reflector -p http -c Germany >> /etc/pacman.d/mirrolist
     reflector -p http -c United\ States >> /etc/pacman.d/mirrorlist
     #time reflector -f 10 -ro /etc/pacman.d/mirrorlist
     echo "Reflecting finished. Updating..."
