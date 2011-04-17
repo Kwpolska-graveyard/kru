@@ -5,8 +5,8 @@
 
 #f(1) syuhelp
 function syuhelp {
-    echo "Kw's Maintenance Script - Arch Linux Release"
-    echo "Copyright Kwpolska 2010. Licensed under GPLv3."
+    echo "Kw's Maintenance Script, Arch Linux Release"
+    echo "Copyright Kwpolska 2010, 2011. Licensed under GPLv3."
     echo "Syntax: syu [argument]"
     echo "no arguments  Perform an update (pacman -Syu + packer -Syu)"
     echo "-a --noaur    Disable packer from the update process"
@@ -42,11 +42,17 @@ function syucron {
 #f(5) syureflect
     function syureflect {
     echo "Running reflector."
-    reflector -p http -c Any > /etc/pacman.d/mirrorlist
+    echo -n "Finished elements:"
+    reflector -c Any > /etc/pacman.d/mirrorlist
+    echo -n " Any"
     reflector -p http -c Germany >> /etc/pacman.d/mirrolist
+    echo -n " Germany"
     reflector -p http -c United\ States >> /etc/pacman.d/mirrorlist
+    echo -n " US"
     reflector -l 5 -p http >> /etc/pacman.d/mirrorlist
+    echo -n " latest"
     reflector -f 5 -p http >> /etc/pacman.d/mirrorlist
+    echo -n " fastest"
     #time reflector -f 10 -ro /etc/pacman.d/mirrorlist
     echo "Reflecting finished. Updating..."
     pacman -Syyu
