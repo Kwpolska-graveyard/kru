@@ -6,13 +6,14 @@ PURPOSE
 This script can do much more than just updating your system. Here is everything what it can do:
 
     Syntax: syu [argument]
-    no   args    Perform an update (NTP + pacman -Syu + clyde -Syu --aur).
-    -a --noaur   Disable clyde from the update process.
-    -c --cron    Perform a cron-friendly update (NTP + pacman -Sy).
-    -h --help    Show this message.
-    -l --lock    Unlock pacman database.
-    -r --reflect Run reflector.
-    -t --time    Update time.
+    no arguments  Perform an update (pacman -Syu + packer -Syu)
+    -a --noaur    Disable packer from the update process
+    -c --cron     Perform a cron-friendly update (NTP + pacman -Sy)
+    -h --help     Show this message.
+    -l --lock     Unlock pacman database.
+    -o --optimize Optimizes the database.
+    -r --reflect  Run reflector.
+    -t --time     Update time.
 
 INSTALLATION
 ------------
