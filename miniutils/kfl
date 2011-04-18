@@ -1,0 +1,12 @@
+#!/bin/bash
+#Kill FLash
+#By Kwpolska, Public Domain.
+flline=$(ps ax | grep flash | grep -i grep)
+tokill=$(echo $flline | cut -c1-5)
+kill $tokill
+echo "Process "$tokill" appears to be Flash Player and was killed. In case I was"
+echo "wrong, please read the line:"
+echo $flline
+echo "Sorry for the inconvenience, if any, but Flash sucks.  If something names"
+echo "itself flash, then it sucks."
+echo "\nThis was KFL, signing off."
