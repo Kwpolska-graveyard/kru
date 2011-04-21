@@ -1,7 +1,8 @@
 #!/bin/bash
 if [ "$1" = "" ]; then
 echo "Which device?"
+exit
 fi
 tune2fs -O extents,uninit_bg,dir_index $1
 fsck -f $1
-vim /etc/fstab
+$EDITOR /etc/fstab
