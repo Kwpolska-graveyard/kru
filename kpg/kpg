@@ -9,7 +9,6 @@ use warnings;
 use strict;
 use File::Basename;
 use File::Copy;
-#use lib '/home/Kwpolska/local/share/perl/5.10.1';
 use Config::Tiny;
 
 my $config = Config::Tiny->new;

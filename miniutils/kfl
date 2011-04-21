@@ -9,4 +9,4 @@ echo "wrong, please read the line:"
 echo $flline
 echo "Sorry for the inconvenience, if any, but Flash sucks.  If something names"
 echo "itself flash, then it sucks."
-echo "\nThis was KFL, signing off."
+echo "This was KFL, signing off."

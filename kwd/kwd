@@ -6,7 +6,6 @@
 
 use warnings;
 use strict;
-#use lib '/home/Kwpolska/local/share/perl/5.10.1';
 use Config::Tiny;
 my $dir = "$ENV{HOME}/.kwd/";
 my $config = Config::Tiny->new;
