@@ -1,6 +1,7 @@
-#!/bin/zsh
-#An implementation of the Euclidean Algorithm in zsh.
+#!/bin/bash
+#An implementation of the Euclidean Algorithm in bash.
 #By Kwpolska. Public Domain.
+
 a=$1
 b=$2
 while [ "$b" != "0" ]; do;
