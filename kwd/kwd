@@ -10,40 +10,41 @@ use Config::Tiny;
 my $dir = "$ENV{HOME}/.kwd/";
 my $config = Config::Tiny->new;
 $config = Config::Tiny->read($dir."kwdrc.ini");
-my $defcopy = $config->{_}->{defcopy};
+my $defcpr = $config->{_}->{defcpr};
 my $spacer = $config->{_}->{spacer};
+my $cpname = $config->{_}->{cpname};
 
 
 # REMEMBER: You are free to modify the code.
 
-print "KWD - copyright Kwpolska 2010. Licensed on GPLv3.\n";
+print "KWD, part of KRU, copyright Kwpolska 2010-2011. Licensed under GPLv3.\n\n";
 
-print "1 | Main program information\n";
-print "> | ";
+print "1. Main program information\n";
+print "1> ";
 my $maininfo = <STDIN>;
 
-print "2 | Purpose\n";
-print "> | ";
+print "2. Purpose\n";
+print "2> ";
 my $purpose = <STDIN>;
 
-print "3 | Install instructions\n";
-print "> | ";
+print "3. Install instructions\n";
+print "3> ";
 my $instructions = <STDIN>;
 
-print "4 | Additional notes - leave empty if not needed\n";
-print "> | ";
+print "4. Additional notes - leave empty if not needed\n";
+print "4> ";
 my $notesbase = <STDIN>;
 
-print "5 | Usage instructions - leave empty if not needed\n";
-print "> | ";
+print "5. Usage instructions - leave empty if not needed\n";
+print "5> ";
 my $usagebase = <STDIN>;
 
-print "6 | Copyright note - leave empty for default\n";
-print "> | ";
+print "6. Copyright note - leave empty for default\n";
+print "6> ";
 my $license = <STDIN>;
 
-print "7 | Save the file as:\n";
-print "> | ";
+print "7. Save the file as:\n";
+print "7> ";
 my $location = <STDIN>;
 
 #ignore this, random crap...
@@ -63,32 +64,37 @@ my $notes = '';
 
 #edit the templates to your own
 if ($notesbase ne "") {
-   $notes = "\nNOTES\n$spacer$notesbase\n";
+    $notes = "\nNOTES\n$spacer\n$notesbase\n";
 }
 if ($usagebase ne "") {
-   $notes .= "\nUSAGE\n$spacer$usagebase\n"; #HA BISKY! cheats ftw
+    $notes .= "\nUSAGE\n$spacer$usagebase\n";
 }
 
 #finally, we can open the up.
 if ($license eq "") {
-   $license = $dir."lic/".$defcopy;
+    $license = $dir."lic/".$defcpr;
 } else {
-   $license = $dir."lic/".$license;
+    $license = $dir."lic/".$license;
 }
-open(my $from, '<', $dir."template") or die "Can't read the template! $!\n";
-open(my $to, '>', $location) or die "Can't create the destination file! $!\n";
-open(my $lic, '<', $license) or die "Can't open the copyright note! $!\n";
+open(my $from, '<', $dir."template") or die "Can't read the template!  $!\n";
+open(my $to, '>', $location) or die "Can't create the destination file!  $!\n";
+open(my $lic, '<', $license) or die "Can't open the copyright notice!  $!\n";
 
-#reading the copyright note...
-my @copy = <$lic>;
-my $copyright = join('', @copy);
+#reading the copyright notice...
+#my @copy = <$lic>;
+my $copy = join('', <$lic>);
+my @lt = localtime(time);
+my $year = $lt[5] + 1900;
+my $copyright = sprintf($copy, $year, $cpname);
 #that's almost it.
+print "Writing...";
 while(<$from>) {
-   $_ =~ s/_KWDPURPOSE_/$purpose/;
-   $_ =~ s/_KWDMAININFO_/$maininfo/;
-   $_ =~ s/_KWDINSTRUCTIONS_/$instructions/;
-   $_ =~ s/_KWDNOTES_/$notes/;
-   $_ =~ s/_KWDCOPYRIGHT_/$copyright/;
-   print $to $_;
+    $_ =~ s/_KWDPURPOSE_/$purpose/;
+    $_ =~ s/_KWDMAININFO_/$maininfo/;
+    $_ =~ s/_KWDINSTRUCTIONS_/$instructions/;
+    $_ =~ s/_KWDNOTES_/$notes/;
+    $_ =~ s/_KWDCOPYRIGHT_/$copyright/;
+    print $to $_;
 }
-print "Created file: ".$location."\n";
+print " done.\n";
+print "Created file:  ".$location."\n";
