@@ -1,13 +1,13 @@
-Git Commiter. Commiting all at once.
+MultiGit. Modifying all at once.
 ==============
 
 PURPOSE
 -------
-This tool automatically commits all changes to your git repositories when you'll start it. The script requires you to have a special dir for repos.
+These tools run specific git commands.  The script requires you to have a special dir for repos.
 
 INSTALLATION
 ------------
-Copy it to /usr/bin or ~/bin. You may need to change the interpreter.
+Copy it to /usr/bin or ~/bin.
 
 NOTES
 -----
@@ -15,7 +15,7 @@ gitcommiter passes all arguments to "git commit" commands.
 
 COPYRIGHT
 ---------
-Copyright (C) 2010 Kwpolska.
+Copyright (C) 2011 Kwpolska.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
