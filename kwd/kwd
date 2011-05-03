@@ -70,10 +70,12 @@ if ($usagebase ne "") {
     $notes .= "\nUSAGE\n$spacer$usagebase\n";
 }
 
-#finally, we can open the up.
+#finally, we can open them.
 if ($license eq "") {
+    my $baselic = $defcpr;
     $license = $dir."lic/".$defcpr;
 } else {
+    my $baselic = $license;
     $license = $dir."lic/".$license;
 }
 open(my $from, '<', $dir."template") or die "Can't read the template!  $!\n";
@@ -83,9 +85,14 @@ open(my $lic, '<', $license) or die "Can't open the copyright notice!  $!\n";
 #reading the copyright notice...
 #my @copy = <$lic>;
 my $copy = join('', <$lic>);
+my $usedata = $config->{usedatainlicenses}->{$baselic};
 my @lt = localtime(time);
 my $year = $lt[5] + 1900;
-my $copyright = sprintf($copy, $year, $cpname);
+if ($usedata eg "true") {
+    my $copyright = sprintf($copy, $year, $cpname);
+} else {
+    my $copyright = $copy;
+}
 #that's almost it.
 print "Writing...";
 while(<$from>) {

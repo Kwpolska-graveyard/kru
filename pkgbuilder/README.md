@@ -1,4 +1,4 @@
-PKGBUILDer. Not an AUR helper.
+PKGBUILDer.  Not an AUR helper.
 ==============
 
 PURPOSE

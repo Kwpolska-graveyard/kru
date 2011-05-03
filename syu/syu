@@ -1,45 +1,35 @@
 #!/bin/zsh
-#Kw's Maintenance Script
-#Arch Linux Release
-#Copyright Kwpolska 2010, 2011. Licensed under GPLv3.
+#syu
+#Copyright Kwpolska 2011.  Licensed under GPLv3.
 
-#f(1) syuhelp
+#f(01) syuhelp
 function syuhelp {
-    echo "Kw's Maintenance Script, Arch Linux Release"
-    echo "Copyright Kwpolska 2010, 2011. Licensed under GPLv3."
-    echo "Syntax: syu [argument]"
-    echo "no arguments  Perform an update (pacman -Syu + packer -Syu)"
-    echo "-a --noaur    Disable packer from the update process"
-    echo "-c --cron     Perform a cron-friendly update (NTP + pacman -Sy)"
-    echo "-h --help     Show this message."
-    echo "-l --lock     Unlock pacman database."
-    echo "-o --optimize Optimizes the database."
-    echo "-r --reflect  Run reflector."
-    echo "-t --time     Update time."
+    echo "syu"
+    echo "Copyright Kwpolska 2011.  Licensed under GPLv3."
+    echo "Syntax: syu [arguments]"
+    echo "  no arguments  Perform an update (pacman -Syu + packer -Syu)."
+    echo "  -h --help     Show this message."
+    echo "  -t --time     Update time."
+    echo "  -l --lock     Unlock pacman database."
+    echo "  -o --optimize Optimizes the database."
+    echo "  -r --reflect  Run reflector."
+    echo "  -c --cron     Perform a cron-friendly update (NTP + pacman -Sy)."
+    echo "  -a --noaur    Disable packer from the update process."
     exit
 }
 
-#f(2) syunlock
+#f(02) syutime
+    function syutime {
+    ntpdate pl.pool.ntp.org
+}
+
+#f(03) syunlock
 function syunlock {
     rm /var/lib/pacman/db.lck
     echo "Database unlocked."
-    exit
 }
 
-#f(3) syucron
-function syucron {
-    ntpdate pl.pool.ntp.org > /dev/null
-    pacman -Sy > /dev/null
-    exit
-}
-
-#f(4) syutime
-    function syutime {
-    ntpdate pl.pool.ntp.org
-    exit
-}
-
-#f(5) syureflect
+#f(04) syureflect
     function syureflect {
     echo "Running reflector."
     echo -n "Finished elements:"
@@ -60,20 +50,35 @@ function syucron {
     exit
 }
 
-#f(6) syuoptimize
+#f(05) syuoptimize
 function syuoptimize {
     pacman-optimize
 }
 
-case "$1" in 
-    "-a" | "--noaur")    syuaur="n"  ;;
-    "-c" | "--cron")     syucron     ;;
-    "-h" | "--help")     syuhelp     ;;
-    "-l" | "--lock")     syunlock    ;;
-    "-o" | "--optimize") syuoptimize ;;
-    "-r" | "--reflect")  syureflect  ;;
-    "-t" | "--time")     syutime     ;;
-esac
+#f(06) syucron
+function syucron {
+    ntpdate pl.pool.ntp.org > /dev/null
+    pacman -Sy > /dev/null
+    exit
+}
+
+while true; do
+    case "$1" in
+        "-h" | "--help")     syuhelp    ; EXIT=s ;; #f(01)
+        "-t" | "--time")     syutime    ; EXIT=y ;; #f(02)
+        "-l" | "--lock")     syunlock   ; EXIT=y ;; #f(03)
+        "-o" | "--optimize") syuoptimize; EXIT=y ;; #f(04)
+        "-r" | "--reflect")  syureflect ; EXIT=n ;; #f(05)
+        "-c" | "--cron")     syucron    ; EXIT=s ;; #f(06)
+        "-a" | "--noaur")    syuaur="n" ; EXIT=n ;; #f(na)
+    esac
+    shift
+done
+if [ "$EXIT" = 'y' ]; then exit; fi
+if [ "$EXIT" = 's' ]; then
+    echo "WARNING:  the self-exit did not happen.  This is a bug."
+    echo "File an issue at <https://github.com/Kwpolska/kru>."; exit 1
+fi
 
 pacman -Syu
 if [ "$syuaur" != "n" ]; then

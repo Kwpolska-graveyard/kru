@@ -1,4 +1,4 @@
-KPG. The smaller brother of KWD.
+KPG.  The smaller brother of KWD.
 ==============
 
 PURPOSE
@@ -7,7 +7,7 @@ Generating HTML with the awesome Markdown.
 
 INSTALLATION
 ------------
-Edit kpgtemplate.html, put it somewhere and run configure. Want to use XHTML (you shall not!) - edit Markdown.pl.
+Edit kpgtemplate.html, put it somewhere and run configure.  Want to use XHTML (you shall not!) - edit Markdown.pl.
 
 NOTES
 -----
@@ -15,7 +15,7 @@ Check out the syntax.md file for useful links.
 
 USAGE
 -----
-./kpg /location/of/markdowned/file [file2] [file3] (and more) - the first line must be the title of your content. (will be removed)
+./kpg /location/of/markdown/file \[file2] \[file3] (and more) - the first line must be the title of your page.
 
 COPYRIGHT
 ---------

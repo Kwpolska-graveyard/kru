@@ -1,13 +1,13 @@
-KWD. First steps in Perl.
+KWD.  Awesome READMEs in 10 secs.
 ==============
 
 PURPOSE
 -------
-This was made for speeding up making all the READMEs.
+This project was made for speeding up making all the READMEs.
 
 INSTALLATION
 ------------
-Check out INSTALL.
+Check out INSTALL.md.
 
 COPYRIGHT
 ---------

@@ -1,19 +1,19 @@
-Kw's Maintenance Script (syu). Updating your Arch Linux since 1901.
+syu.  Maintaining your Arch Linux since 1901.
 ==============
 
 PURPOSE
 -------
-This script can do much more than just updating your system. Here is everything what it can do:
+This script can do much more than just an update:
 
-    Syntax: syu [argument]
-    no arguments  Perform an update (pacman -Syu + packer -Syu)
-    -a --noaur    Disable packer from the update process
-    -c --cron     Perform a cron-friendly update (NTP + pacman -Sy)
-    -h --help     Show this message.
-    -l --lock     Unlock pacman database.
-    -o --optimize Optimizes the database.
-    -r --reflect  Run reflector.
-    -t --time     Update time.
+    Syntax: syu [arguments]
+      no arguments  Perform an update (pacman -Syu + packer -Syu).
+      -h --help     Show this message.
+      -t --time     Update time.
+      -l --lock     Unlock pacman database.
+      -o --optimize Optimizes the database.
+      -r --reflect  Run reflector.
+      -c --cron     Perform a cron-friendly update (NTP + pacman -Sy).
+      -a --noaur    Disable packer from the update process.
 
 INSTALLATION
 ------------
@@ -21,7 +21,7 @@ Copy it to somewhere in your $PATH.
 
 COPYRIGHT
 ---------
-Copyright (C) 2010 Kwpolska.
+Copyright (C) 2011 Kwpolska.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -35,4 +35,3 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-

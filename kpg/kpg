@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # KPG
 # Part of KRU
-# Copyright Kwpolska 2010. Licensed on GPLv3.
+# Copyright Kwpolska 2010.  Licensed under GPLv3.
 # Portions copyright Enlik 2010.
 #USAGE: ./kpg file1 [file2] [file3] (and more)
 

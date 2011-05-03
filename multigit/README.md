@@ -1,9 +1,10 @@
-MultiGit. Modifying all at once.
+MultiGit.  Updating all at once.
 ==============
 
 PURPOSE
 -------
-These tools run specific git commands.  The script requires you to have a special dir for repos.
+These tools run specific git commands.  The script requires a special dir for
+repos.  (~/git by default)
 
 INSTALLATION
 ------------

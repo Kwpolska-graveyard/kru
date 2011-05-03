@@ -1,15 +1,15 @@
-KwInstaller. Easy as 1-2-3.
+KwInstaller.  Easy as 1-2-3.
 ==============
 
 PURPOSE
 -------
-Made for kwpastebin. Small installer. And nothing else.
+Small installer.  And nothing else.
 
 INSTALLATION
 ------------
 1. Edit it.
 2. Copy it.
-3. Try it.
+3. Use it.
 
 COPYRIGHT
 ---------

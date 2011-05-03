@@ -1,13 +1,4 @@
-sha512sum for PHP
-==============
-
-PURPOSE
--------
-A tool for making SHA512 sums.
-
-COPYRIGHT
----------
-Copyright (C) 2011, Kwpolska.
+Copyright (C) %d by %s
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

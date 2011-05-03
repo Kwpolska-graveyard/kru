@@ -1,4 +1,4 @@
-Kw's CAPTCHA. Basic CAPTCHA for you.
+Kw's CAPTCHA.  Basic CAPTCHA for everybody.
 ==============
 
 PURPOSE
@@ -7,11 +7,13 @@ This is a little CAPTCHA implementation.
 
 INSTALLATION
 ------------
-Copy somewhere and edit it if you need.
+Copy captcha.php file somewhere and edit it if you need.  For figlet support,
+install `Text_Figlet` from PEAR.
 
 USAGE
 -----
-See USAGE.
+Insert an image to captcha.php?action=img.  For text browsers, you can link to
+captcha.php?action=img or captcha.php?action=figlet.
 
 COPYRIGHT
 ---------
