@@ -1,4 +1,4 @@
-This project is out-of-date, deprecated, and so on.  Please don't use it.
+**This project is out-of-date, deprecated, and so on.  Please don't use it.  --Kw**
 
 KPG.  The smaller brother of KWD.
 ==============
