@@ -1,8 +1,0 @@
-#!/bin/sh
-echo 'Where is the page template?'
-read template
-echo 'Where is the Markdown.pl file?'
-read markdown
-echo 'template='$template'
-pathtomarkdown='$markdown > ~/.kpgrc.ini
-echo "KPG was successfully configured. Yay!"

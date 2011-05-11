@@ -17,7 +17,7 @@ my $cpname = $config->{_}->{cpname};
 
 # REMEMBER: You are free to modify the code.
 
-print "KWD, part of KRU, copyright Kwpolska 2010-2011. Licensed under GPLv3.\n\n";
+print "KWD, a part of KRU, copyright Kwpolska 2010-2011. Licensed under GPLv3.\n\n";
 
 print "1. Main program information\n";
 print "1> ";

@@ -30,4 +30,4 @@ $config = Config::Tiny->read($dir."kwdrc.ini");
 $config->{usedataincopyright}->{$bname} = $udtf;
 $config->write($dir."kwdrc.ini");
 print " done\n";
-print "To add another license, run addlic.pl again.\n"
+print "To add another license, run addlic.pl again.\n";

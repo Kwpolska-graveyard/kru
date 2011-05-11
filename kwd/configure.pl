@@ -13,7 +13,7 @@ my $dir = "$ENV{HOME}/.kwd/";
 print "KWD, part of KRU, copyright Kwpolska 2010-2011.  Licensed under GPLv3.\n";
 print "Configuration\n\n";
 
-print "What is the spacer of NOTES/USAGE? (eg. -----)\n> "
+print "What is the spacer of NOTES/USAGE? (eg. -----)\n> ";
 my $spacer = <STDIN>;
 print "\nWhat is the default copyright notice?\nShipped with KWD: gplv3 mit newbsd freebsd \n> ";
 my $defcpr = <STDIN>;
@@ -36,10 +36,10 @@ $config->{usedataincopyright}->{newbsd}  = "true";
 $config->{usedataincopyright}->{freebsd} = "true";
 
 $config->write($dir."kwdrc.ini");
-echo " done\n"
+print " done\n";
 
-echo "Installing copyright notices..."
+print "Installing copyright notices...";
 copy('licenses', $dir);
 
 print " done\n";
-print "All done.  To add a new license, run addlic.pl.\n"
+print "All done.  To add a new license, run addlic.pl.\n";

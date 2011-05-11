@@ -8,7 +8,7 @@ for dirname in *
 do
     echo "Entering directory $dirname"
     cd ~/git/$dirname
-    git commit -am "auto commit"
+    git commit -am "gitcron $(date +'%l:%M %p %m/%d/%Y') $(uname -n)"
     git push
     cd ../
 done
