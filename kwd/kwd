@@ -1,12 +1,13 @@
 #!/usr/bin/perl
 # KWD
 # Part of KRU
-# Copyright Kwpolska 2010. Licensed under GPLv3.
+# Copyright Kwpolska 2010-2011. Licensed under GPLv3.
 # Portions copyright Enlik 2010.
 
 use warnings;
 use strict;
 use Config::Tiny;
+# reading configuration
 my $dir = "$ENV{HOME}/.kwd/";
 my $config = Config::Tiny->new;
 $config = Config::Tiny->read($dir."kwdrc.ini");
@@ -14,10 +15,12 @@ my $defcpr = $config->{_}->{defcpr};
 my $spacer = $config->{_}->{spacer};
 my $cpname = $config->{_}->{cpname};
 
+#hello user, I seem to work fine.
 
-# REMEMBER: You are free to modify the code.
+print "KWD, a part of KRU, copyright Kwpolska 2010-2011.\n";
+print "Licensed under GPLv3.\n\n";
 
-print "KWD, a part of KRU, copyright Kwpolska 2010-2011. Licensed under GPLv3.\n\n";
+#user input time!
 
 print "1. Main program information\n";
 print "1> ";
@@ -47,7 +50,7 @@ print "7. Save the file as:\n";
 print "7> ";
 my $location = <STDIN>;
 
-#ignore this, random crap...
+#I love this.  I really do.
 chomp($maininfo);
 $maininfo =~ s/\\n/\n/g;
 chomp($purpose);
@@ -62,20 +65,21 @@ $usagebase =~ s/\\n/\n/g;
 chomp($license);
 my $notes = '';
 
-#edit the templates to your own
+#does anyone use it?
 if ($notesbase ne "") {
     $notes = "\nNOTES\n$spacer\n$notesbase\n";
 }
 if ($usagebase ne "") {
-    $notes .= "\nUSAGE\n$spacer$usagebase\n";
+    $notes .= "\nUSAGE\n$spacer\n$usagebase\n";
 }
 
 #finally, we can open them.
+my $baselic;
 if ($license eq "") {
-    my $baselic = $defcpr;
+    $baselic = $defcpr;
     $license = $dir."lic/".$defcpr;
 } else {
-    my $baselic = $license;
+    $baselic = $license;
     $license = $dir."lic/".$license;
 }
 open(my $from, '<', $dir."template") or die "Can't read the template!  $!\n";
@@ -87,11 +91,12 @@ open(my $lic, '<', $license) or die "Can't open the copyright notice!  $!\n";
 my $copy = join('', <$lic>);
 my $usedata = $config->{usedatainlicenses}->{$baselic};
 my @lt = localtime(time);
-my $year = $lt[5] + 1900;
-if ($usedata eg "true") {
-    my $copyright = sprintf($copy, $year, $cpname);
+my $year = $lt[5] + 1900; # <3 Y2K
+my $copyright;
+if ($usedata eq "true") {
+    $copyright = sprintf($copy, $year, $cpname);
 } else {
-    my $copyright = $copy;
+    $copyright = $copy;
 }
 #that's almost it.
 print "Writing...";
@@ -103,5 +108,7 @@ while(<$from>) {
     $_ =~ s/_KWDCOPYRIGHT_/$copyright/;
     print $to $_;
 }
+# In case you're wondering why aren't they sprintf, I can tell you:
+# users don't have to use the exact same order as I do.
 print " done.\n";
 print "Created file:  ".$location."\n";
