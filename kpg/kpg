@@ -8,25 +8,25 @@
 use warnings;
 use strict;
 use File::Basename;
-use File::Copy;
 use Config::Tiny;
 
 my $config = Config::Tiny->new;
-$config = Config::Tiny->read( "$ENV{HOME}/.kpgrc.ini" );
+$config = Config::Tiny->read("$ENV{HOME}/.kpgrc.ini");
 my $markdown = $config->{_}->{markdown};
 my $template = $config->{_}->{template};
 
 sub generate {
-   my $base=shift;
+#getting useless filenames
+   my $base = shift;
    my $tmp = $base.".tmp";
    my $basename = fileparse($base, qr/\.[^.]*/);
    my $location = $basename.".html";
 
 #opening files
-   open my $from, '<', $template or die "Can't read the template! $!\n";
-   open my $to, '>', $location or die "Can't create the destination file! $!\n";
-   open my $basefh, '<', $base or die "Can't read the base file! $!\n";
-   open my $tmpfh, '>', $tmp, or die "Can't read the temp file! $!\n";
+   open my $from, '<', $template or die "Can't read the template!  $!\n";
+   open my $to, '>', $location or die "Can't create the destination file!  $!\n";
+   open my $basefh, '<', $base or die "Can't read the base file!  $!\n";
+   open my $tmpfh, '>', $tmp, or die "Can't read the temp file!  $!\n";
 
 #reading the title
    my @bfile = <$basefh>;

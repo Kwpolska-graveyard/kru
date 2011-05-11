@@ -1,3 +1,5 @@
+This project is out-of-date, deprecated, and so on.  Please don't use it.
+
 KPG.  The smaller brother of KWD.
 ==============
 
