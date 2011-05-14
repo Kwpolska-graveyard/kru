@@ -20,7 +20,7 @@ my $defcpr = <STDIN>;
 print "\nWhat is your name? (required for copyright notices)\n> ";
 my $cpname = <STDIN>;
 
-chomp($spacer):
+chomp($spacer);
 chomp($defcpr);
 chomp($cpname);
 
