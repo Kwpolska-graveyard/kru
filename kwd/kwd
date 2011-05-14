@@ -89,7 +89,7 @@ open(my $lic, '<', $license) or die "Can't open the copyright notice!  $!\n";
 #reading the copyright notice...
 #my @copy = <$lic>;
 my $copy = join('', <$lic>);
-my $usedata = $config->{usedatainlicenses}->{$baselic};
+my $usedata = $config->{usedataincopyright}->{$baselic};
 my @lt = localtime(time);
 my $year = $lt[5] + 1900; # <3 Y2K
 my $copyright;
