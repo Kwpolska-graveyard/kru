@@ -2,39 +2,45 @@
 # trash.py
 # Part of KRU
 # Copyright Kwpolska 2011.  Licensed under GPLv3.
-from shutil import *
-from os import *
-from os.path import *
+from shutil import rmtree
+from os import mkdir, rename
+from os.path import basename, expanduser
 from argparse import *
-from shlex import *
-from subprocess import *
+from subprocess import call
 from datetime import date, time, datetime
 ktdirectory = expanduser("~/.local/share/Trash")
+
+def createTrash():
+    if os.path.exists(ktdirectory) == False:
+        mkdir(ktdirectory)
+    mkdir(ktdirectory+'/files')
+    mkdir(ktdirectory+'/info')
+    infofile = '[Cached]\nSize=0'
+    open(ktdirectory+'/metadata', "w").write(infofile)
+
 def emptyTrash():
     """Empties the trash."""
     print ":: Emptying the trash"
     rmtree(ktdirectory+'/files')
-    mkdir(ktdirectory+'/files')
     rmtree(ktdirectory+'/info')
-    mkdir(ktdirectory+'/info')
-    open(ktdirectory+'/metadata', 'w').write('[Cached]\nSize=0')
+    createTrash()
     print "[DONE]"
 
 def listFiles():
     """Lists the trash contents (using /bin/ls)."""
-    call('/bin/ls --color=auto '+ktdirectory, shell=True)
+    call('/bin/ls --color=auto '+ktdirectory+'/files', shell=True)
 
 def moveToTrash(filename):
     """Moves specified files to trash."""
-    rename(filename, ktdirectory+'/files/'+basename(filename))
+    rename(filename, ktdirectory+'/info/'+basename(filename))
     infofile = '[Trash \
     Info]\nPath={0}\nDeletionDate={1}'.format(realpath(filename),
         datetime.now().strftime('%Y-%m-%dT%H:%m:%S'))
-    open(ktdirectory+'/metadata/'+basename(filename)+'.trashinfo',
-        "w").write(infofile)
+    open(ktdirectory+'/files/'+basename(filename)+'.trashinfo',
+            "w").write(infofile)
 
 def moveToTrashVerbose(filename):
-   """Verbosely moves specified files to trash."""
+    """Verbosely moves specified files to trash."""
     moveToTrash(filename)
     print "trashed `{0}'".format(filename)
 
@@ -53,6 +59,10 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     shallExit = False
+
+    if os.path.exists(ktdirectory) == False:
+        print "`{0}' does not exist, creating...".format(ktdirectory)
+        createTrash()
 
     if args.flist == True:
         listFiles()
