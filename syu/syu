@@ -65,15 +65,17 @@ function syucron {
     exit
 }
 
+
 while true; do
     case "$1" in
-        "-h" | "--help")     syuhelp    ; EXIT=s ;; #f(01)
-        "-t" | "--time")     syutime    ; EXIT=y ;; #f(02)
-        "-l" | "--lock")     syunlock   ; EXIT=y ;; #f(03)
-        "-o" | "--optimize") syuoptimize; EXIT=y ;; #f(04)
-        "-r" | "--reflect")  syureflect ; EXIT=n ;; #f(05)
-        "-c" | "--cron")     syucron    ; EXIT=s ;; #f(06)
-        "-a" | "--noaur")    syuaur="n" ; EXIT=n ;; #f(na)
+        "-h" | "--help")        syuhelp    ; EXIT=s ;; #f(01)
+        "-t" | "--time")        syutime    ; EXIT=y ;; #f(02)
+        "-l" | "--lock")        syunlock   ; EXIT=y ;; #f(03)
+        "-o" | "--optimize")    syuoptimize; EXIT=y ;; #f(04)
+        "-r" | "--reflect")     syureflect ; EXIT=n ;; #f(05)
+        "-c" | "--cron")        syucron    ; EXIT=s ;; #f(06)
+        "-a" | "--noaur")       syuaur="n" ; EXIT=n ;; #f(na)
+        "")                     exit         EXIT=s ;; #iLoveYouBash
     esac
     shift
 done
