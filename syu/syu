@@ -47,7 +47,7 @@ function syunlock {
     reflector -f 5 -p http >> /etc/pacman.d/mirrorlist
     echo -n " fastest"
     #time reflector -f 10 -ro /etc/pacman.d/mirrorlist
-    echo "Reflecting finished. Updating..."
+    echo -e "\nReflecting finished. Updating..."
     pacman -Syyu
     packer -Syyu
     exit
