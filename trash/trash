@@ -1,48 +1,50 @@
 #!/usr/bin/env python2.6
-# trash.py
+# trash
 # Part of KRU
 # Copyright Kwpolska 2011.  Licensed under GPLv3.
-from shutil import rmtree
-from os import mkdir, rename
-from os.path import basename, expanduser
+import shutil
+import os
+import os.path
+import subprocess
+import datetime
+import sys
 from argparse import *
-from subprocess import call
-from datetime import date, time, datetime
-ktdirectory = expanduser("~/.local/share/Trash")
 
-def createTrash():
+ktdirectory = os.path.expanduser("~/.local/share/Trash")
+
+def createTrash():
     if os.path.exists(ktdirectory) == False:
         mkdir(ktdirectory)
-    mkdir(ktdirectory+'/files')
-    mkdir(ktdirectory+'/info')
+    os.mkdir(ktdirectory+'/files')
+    os.mkdir(ktdirectory+'/info')
     infofile = '[Cached]\nSize=0'
     open(ktdirectory+'/metadata', "w").write(infofile)
 
 def emptyTrash():
     """Empties the trash."""
-    print ":: Emptying the trash"
-    rmtree(ktdirectory+'/files')
-    rmtree(ktdirectory+'/info')
+    sys.stderr.write(":: Emptying the trash")
+    shutil.rmtree(ktdirectory+'/files')
+    shutil.rmtree(ktdirectory+'/info')
     createTrash()
-    print "[DONE]"
+    sys.stderr.write("[DONE]")
 
 def listFiles():
     """Lists the trash contents (using /bin/ls)."""
-    call('/bin/ls --color=auto '+ktdirectory+'/files', shell=True)
+    subprocess.call('/bin/ls --color=auto '+ktdirectory+'/files', shell=True)
 
 def moveToTrash(filename):
     """Moves specified files to trash."""
-    rename(filename, ktdirectory+'/info/'+basename(filename))
+    os.rename(filename, ktdirectory+'/info/'+os.path.basename(filename))
     infofile = '[Trash \
     Info]\nPath={0}\nDeletionDate={1}'.format(realpath(filename),
-        datetime.now().strftime('%Y-%m-%dT%H:%m:%S'))
-    open(ktdirectory+'/files/'+basename(filename)+'.trashinfo',
+        datetime.datetime.now().strftime('%Y-%m-%dT%H:%m:%S'))
+    open(ktdirectory+'/files/'+os.path.basename(filename)+'.trashinfo',
             "w").write(infofile)
 
 def moveToTrashVerbose(filename):
     """Verbosely moves specified files to trash."""
     moveToTrash(filename)
-    print "trashed `{0}'".format(filename)
+    sys.stderr.write("trashed `{0}'".format(filename))
 
 
 if __name__ == '__main__':

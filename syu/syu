@@ -6,15 +6,18 @@
 function syuhelp {
     echo "syu"
     echo "Copyright Kwpolska 2011.  Licensed under GPLv3."
-    echo "Syntax: syu [arguments]"
-    echo "  no arguments  Perform an update (pacman -Syu + packer -Syu)."
-    echo "  -h --help     Show this message."
-    echo "  -t --time     Update time."
-    echo "  -l --lock     Unlock pacman database."
-    echo "  -o --optimize Optimizes the database."
-    echo "  -r --reflect  Run reflector."
-    echo "  -c --cron     Perform a cron-friendly update (NTP + pacman -Sy)."
-    echo "  -a --noaur    Disable packer from the update process."
+    echo "usage: syu [-h] [-t] [-l] [-o] [-r] [-c] [-a]"
+    echo -ne "\nAn update script.  Part of KRU, copyright Kwpolska 2011, licensed"
+    echo -e  "under\nGPLv3.\n"
+    echo "default behavior: Perform an update (pacman -Syu + packer -Syu)."
+    echo "optional arguments:"
+    echo "  -h, --help      show this message and exit"
+    echo "  -t, --time      update time using NTP and exit"
+    echo "  -l, --lock      unlock the pacman databas and exit"
+    echo "  -o, --optimize  optimize the pacman database and exit"
+    echo "  -r, --reflect   reflect the mirrors"
+    echo "  -c, --cron      perform a cron-friendly update (NTP + pacman -Sy)"
+    echo "  -a, --noaur     don't use packer while updating."
     exit
 }
 
