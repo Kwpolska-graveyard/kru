@@ -22,11 +22,10 @@ def createTrash():
 
 def emptyTrash():
     """Empties the trash."""
-    sys.stderr.write(":: Emptying the trash")
     shutil.rmtree(ktdirectory+'/files')
     shutil.rmtree(ktdirectory+'/info')
     createTrash()
-    sys.stderr.write("[DONE]")
+    sys.stderr.write("emptied the trash")
 
 def listFiles():
     """Lists the trash contents (using /bin/ls)."""
