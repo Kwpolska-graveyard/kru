@@ -3,11 +3,12 @@ echo 'Git Puller'
 echo 'Copyright Kwpolska 2011. Licensed on GPLv3.'
 echo 'Executed: '`date`
 cd ~/git
+if [ "$1" = "--settracking" ]; then args='-u origin master'; fi
 for dirname in *
 do
     echo "Entering directory $dirname"
     cd ~/git/$dirname
-    git pull
+    git pull $args
     cd ../
 done
 echo "Done."
