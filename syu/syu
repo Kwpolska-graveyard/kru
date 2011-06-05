@@ -29,7 +29,6 @@ function syuhelp {
 #f(03) syunlock
 function syunlock {
     rm /var/lib/pacman/db.lck
-    echo "Database unlocked."
 }
 
 #f(04) syureflect
@@ -65,7 +64,8 @@ function syucron {
     exit
 }
 
-while true; do
+cycling='true'
+while [ $cycling == 'true' ]; do
     case "$1" in
         "-h" | "--help")        syuhelp    ; EXIT=s ;; #f(01)
         "-t" | "--time")        syutime    ; EXIT=y ;; #f(02)
@@ -74,6 +74,7 @@ while true; do
         "-r" | "--reflect")     syureflect ; EXIT=n ;; #f(05)
         "-c" | "--cron")        syucron    ; EXIT=s ;; #f(06)
         "-a" | "--noaur")       syuaur="n" ; EXIT=n ;; #f(na)
+        "")                     cycling='false'     ;;
     esac
     shift
 done
