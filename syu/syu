@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 #syu
 #Copyright Kwpolska 2011.  Licensed under GPLv3.
 
@@ -65,7 +65,6 @@ function syucron {
     exit
 }
 
-
 while true; do
     case "$1" in
         "-h" | "--help")        syuhelp    ; EXIT=s ;; #f(01)
@@ -75,14 +74,14 @@ while true; do
         "-r" | "--reflect")     syureflect ; EXIT=n ;; #f(05)
         "-c" | "--cron")        syucron    ; EXIT=s ;; #f(06)
         "-a" | "--noaur")       syuaur="n" ; EXIT=n ;; #f(na)
-        "")                     exit         EXIT=s ;; #iLoveYouBash
     esac
     shift
 done
-if [ "$EXIT" = 'y' ]; then exit; fi
-if [ "$EXIT" = 's' ]; then
+if [ "$EXIT" == 'y' ]; then exit 0; fi
+if [ "$EXIT" == 's' ]; then
     echo "WARNING:  the self-exit did not happen.  This is a bug."
-    echo "File an issue at <https://github.com/Kwpolska/kru>."; exit 1
+    echo "File an issue at <https://github.com/Kwpolska/kru/issues>."
+    exit 1
 fi
 
 pacman -Syu
