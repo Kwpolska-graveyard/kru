@@ -1,8 +1,10 @@
 KPG includes the following copyright notices:
 
+    *   freebsd -- The 2-clause BSD Copyright Notice.
+        UDIC=true, source=wikipedia, GPL compatible
     *   gplv3 -- The GPLv3 Copyright Notice.
         UDIC=true, source=FSF
     *   newbsd -- The 3-clause BSD Copyright Notice.
         UDIC=true, source=supybot, GPL compatible
-    *   freebsd -- The 2-clause BSD Copyright Notice.
+    *   mit -- The MIT/X11 Copyright Notice.
         UDIC=true, source=wikipedia, GPL compatible

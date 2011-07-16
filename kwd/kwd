@@ -11,9 +11,9 @@ use Config::Tiny;
 my $dir = "$ENV{HOME}/.kwd/";
 my $config = Config::Tiny->new;
 $config = Config::Tiny->read($dir."kwdrc.ini");
-my $defcpr = $config->{_}->{defcpr};
-my $spacer = $config->{_}->{spacer};
-my $cpname = $config->{_}->{cpname};
+my $defcpr = $config->{kwd}->{defcpr};
+my $spacer = $config->{kwd}->{spacer};
+my $cpname = $config->{kwd}->{cpname};
 
 #hello user, I seem to work fine.
 
@@ -42,9 +42,18 @@ print "5. Usage instructions - leave empty if not needed\n";
 print "5> ";
 my $usagebase = <STDIN>;
 
-print "6. Copyright note - leave empty for default\n";
+print "6. Copyright note - leave empty for default or type '?' for list\n";
 print "6> ";
 my $license = <STDIN>;
+chomp($license);
+if ($license eq '?') {
+    print "Avaliable licenses: ";
+    my @files = glob($dir.'lic/*');
+    foreach my $file (@files) {
+        $file =~ s|/.*/lic/||;
+        print "$file ";
+    }
+}
 
 print "7. Save the file as:\n";
 print "7> ";
