@@ -59,8 +59,11 @@ def info(pkgname, quiet):
 
 def search(pkgname):
     aur = AUR.AUR(threads=10)
-    aur_pkgs = aur.search(pkgname)
-    return aur_pkgs
+    return aur.search(pkgname)
+
+def msearch(username):
+    aur = AUR.AUR(threads=10)
+    return aur.msearch(username)
 
 def showInfo(package):
     pycman.config.init_with_config('/etc/pacman.conf')
@@ -123,9 +126,7 @@ def buildSub(package):
                                          pkginfo[0]['URLPath'])
         size=''
         headers = rhandle.info()
-        fhandle = open(filename, 'wb')
-        fhandle.write(rhandle.read())
-        fhandle.close()
+        open(filename, 'wb').write(rhandle.read())
         fancyMsg2(headers['Content-Length']+' bytes downloaded')
 
         #extracting
@@ -208,6 +209,9 @@ packages were installed after build")
 
     parser.add_argument('-i', '--info', action='store_true', default=False,
                         dest='info', help="show package info")
+    parser.add_argument('-m', '---maintsearch', action='store_true',
+                        default=False, dest='maint', help="show maintainer's\
+packages (PACKAGE becomes maintainer's name")
     parser.add_argument('-s', '--search', action='store_true', default=False,
                         dest='search', help="search for a package")
     parser.add_argument('pkgs', metavar="PACKAGE", action='store', nargs='*',
@@ -222,7 +226,10 @@ packages were installed after build")
         YELLOW=''
 
     if args.search == True:
-        pkgsearch = search(' '.join(args.pkgs))
+        if args.maintsearch == True:
+            pkgsearch = msearch(' '.join(args.pkgs))
+        else:
+            pkgsearch = search(' '.join(args.pkgs))
         for package in pkgsearch:
             showInfo(package)
         exit(0)
@@ -247,4 +254,5 @@ pkg[0]['License'], pkg[0]['NumVotes'], pkg[0]['OutOfDate']))
     #oh, no exit?  fine then.  We need to build it.
     for package in args.pkgs:
         build(package)
-#250 lines!  Compare this to build.pl's 56 (including ~8 useless...)
+#over 250 lines!  Compare this to build.pl's 56 (including ~8 useless...)
+#Better yet: another feature is planned.
