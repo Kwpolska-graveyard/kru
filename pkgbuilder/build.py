@@ -18,6 +18,11 @@ import urllib.request
 import urllib.error
 import tarfile
 import subprocess
+
+"""
+A python3 AUR helper (sort of.)  Wrapper-friendly (pacman-like output.)
+"""
+
 #Fancy-schmancy messages stolen from makepkg.
 ALL_OFF="\x1b[1;0m"
 BOLD="\x1b[1;1m"
@@ -32,25 +37,26 @@ def fancyMsg2(text):
     sys.stderr.write(BLUE+'  ->'+ALL_OFF+BOLD+' '+text+ALL_OFF+"\n")
 
 def fancyWarning(text):
-    sys.stderr.write(YELLOW+'==> WARNING:'+ALL_OFF+BOLD+' '+text+ALL_OFF+"\n")
-
+    sys.stderr.write(YELLOW+'==> WARNING:'+ALL_OFF+BOLD+' '+text+ALL_OFF+
+                     "\n")
 def fancyError(text):
     sys.stderr.write(RED+'==> ERROR:'+ALL_OFF+BOLD+' '+text+ALL_OFF+"\n")
 #That's it.
 categories = ['ERR0R', 'ERR1R', 'daemons', 'devel', 'editors', 'emulators',
-'games', 'gnome', 'i18n', 'kde', 'kernels', 'lib', 'modules', 'multimedia',
-'network', 'office', 'science', 'system', 'x11', 'xfce']
+              'games', 'gnome', 'i18n', 'kde', 'kernels', 'lib', 'modules',
+              'multimedia', 'network', 'office', 'science', 'system',
+              'x11', 'xfce']
 #If you can see ERR0R or ERR1R in the output, something bad has happened.
-def info(pkgname, quiet):
+def info(pkgname):
+    """
+    Returns aur_pkgs[0].  If quiet is set to False, will throw an error if
+    there is no such package.
+    """
     try:
         aur = AUR.AUR(threads=10)
         aur_pkgs = aur.info(pkgname)
         if aur_pkgs == []:
-            if quiet == False:
-                return None
-            else:
-                raise Exception("Cannot find the package `"+pkgname+"'.")
-                #oh well, it WOULD make sense in the only quiet=True place.
+            return None
         else:
             return aur_pkgs
     except Exception as inst:
@@ -58,11 +64,20 @@ def info(pkgname, quiet):
         exit(1)
 
 def search(pkgname):
+    """
+    Searches for AUR packages.
+    """
     aur = AUR.AUR(threads=10)
     aur_pkgs = aur.search(pkgname)
     return aur_pkgs
 
 def showInfo(package):
+    """
+    Outputs info about package.
+
+    Format: category/name version (num votes, out of date) [installed]
+    Out of date is displayed only when needed and in red.
+    """
     pycman.config.init_with_config('/etc/pacman.conf')
     db = pyalpm.get_localdb()
     pkg = db.get_pkg(package['Name'])
@@ -80,12 +95,17 @@ def showInfo(package):
           package['NumVotes'], outofdate, installed))
 
     pyalpm.release()
-def build(package):
+def build(package, valdiate):
+    """
+    NOT the actual build function.
+    This function makes validation and building AUR deps possible.
+    If you can, use it.
+    """
     buildResult = buildSub(package)
     try:
         if buildResult == 0:
             fancyMsg("The build function reported a proper build.")
-            if args.valid == True:
+            if validate == True:
                 #check if installed
                 pycman.config.init_with_config('/etc/pacman.conf')
                 db = pyalpm.get_localdb()
@@ -108,14 +128,29 @@ def build(package):
     except Exception as inst:
         fancyError(str(inst))
 
+def syncCheck(dep, repos):
+    #modded pycman.action_sync.find_sync_package()
+    for db in repos.values():
+        pkg = db.get_pkg(dep)
+        if pkg is not None:
+            return True, pkg
+    return False
+
 def buildSub(package):
+    """
+    This is the actual build function.  You shall not use it unless you
+    will re-implement build().
+    """
+
     try:
         #exists
-        pkginfo = info(package, False)
+        pkginfo = info(package)
+        if pkginfo is None:
+            raise Exception("Cannot find the package `"+package+"'.")
         fancyMsg('Compiling package {0}...'.format(pkginfo[0]['Name']))
         showInfo(pkginfo[0])
         filename = pkginfo[0]['Name']+'.tar.gz'
-        #okay, this package exists.
+        #Okay, this package exists, great.  Thanks, user.
 
         #download
         fancyMsg("Downloading: {0}".format(filename))
@@ -156,6 +191,7 @@ def buildSub(package):
         bothdepends = depends + makedepends
         addonAUR = []
         addonAURUse = False
+
         #depcheck
         fancyMsg('Checking dependencies...')
         if bothdepends == []:
@@ -166,7 +202,7 @@ def buildSub(package):
             db = pyalpm.get_localdb()
             #These lines appear THREE times in this script.  For a reason.
             #pyalpm is really, REALLY unstable, so I think that it might
-            #break if I would use a function.
+            #break if I would use a function.       (of course it wouldn't.)
             for dep in bothdepends:
                 if re.search('[<=>]', dep):
                     fancyMsg2('{0} must be in a specific version. Problems \
@@ -179,21 +215,22 @@ may occur if the package is from the AUR.'.format(dep))
                 repos = dict((db.name,db) for db in pyalpm.get_syncdbs())
                 if pkg != None:
                     fancyMsg2('{0}: found in system'.format(dep))
-                elif pycman.action_sync.find_sync_package(dep, repos):
+                elif syncCheck(dep, repos):
                     fancyMsg2('{0}: found in repos'.format(dep))
-                elif info(dep, True):
+                elif info(dep):
                     fancyMsg2('{0}: found in the AUR, will build now'.format(dep))
                     addonAUR.append('dep')
                     addonAURUse = True
                 else:
-                    raise Exception("depcheck: cannot find {0}\
-                    anywhere (system, repos, AUR)".format(dep))
-                pyalpm.release()
+                    raise Exception("depcheck: cannot find {0} \
+anywhere (system, repos, AUR)".format(dep))
+            pyalpm.release()
             if addonAURUse == True:
                 return 22
         #build
-        return subprocess.call('/usr/bin/makepkg -si', shell=True)
-        #Is that it?  The main function takes only ONE LINE?! Amazing.
+        return subprocess.call('/usr/bin/makepkg -sic', shell=True)
+        #Is that it?  The main function takes only ONE LINE?!
+        #Amazing.  I don't believe it. This comment fixes the `problem.'
     except urllib.error.URLError as inst:
         fancyError(str(inst))
     except urllib.error.HTTPError as inst:
@@ -204,21 +241,24 @@ may occur if the package is from the AUR.'.format(dep))
         fancyError(str(inst))
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="An AUR helper (sort of.)")
+    parser = argparse.ArgumentParser(description="A python3 AUR helper \
+(sort of.)  Wrapper-friendly (pacman-like output.)")
     parser.add_argument('-C', '--nocolor', action='store_false',
                         default=True, dest='color', help="don't use colors")
     parser.add_argument('-V', '--novalidation', action='store_false',
-                        default=True, dest='valid', help="don't check if\
-packages were installed after build")
+                        default=True, dest='valid', help="don't check if \
+                        packages were installed after build")
 
     parser.add_argument('-i', '--info', action='store_true', default=False,
                         dest='info', help="show package info")
-    parser.add_argument('-s', '--search', action='store_true', default=False,
-                        dest='search', help="search for a package")
-    parser.add_argument('pkgs', metavar="PACKAGE", action='store', nargs='*',
-                        help="packages to build")
+    parser.add_argument('-s', '--search', action='store_true',
+                        default=False, dest='search', help="search for a \
+                        package")
+    parser.add_argument('pkgs', metavar="PACKAGE", action='store',
+                        nargs='*', help="packages to build")
     args = parser.parse_args()
     if args.color == False:
+        #That's awesome in variables AND this version.
         ALL_OFF=''
         BOLD=''
         BLUE=''
@@ -227,29 +267,40 @@ packages were installed after build")
         YELLOW=''
 
     if args.search == True:
-        pkgsearch = search(' '.join(args.pkgs))
+        pkgsearch = search(' '.join(args.pkgs)) #pacman-like behavior.
         for package in pkgsearch:
             showInfo(package)
         exit(0)
 
     if args.info == True:
         for package in args.pkgs:
-            pkg = info(package, True)
+            try:
+                pkg = info(package, True)
+                if pkg is None:
+                    raise Exception("Cannot find the package `"+pkgname+"'.")
+            except Exception as inst:
+                fancyError(str(inst))
             category = pkg[0]['CategoryID']
-            print("""
-Name           : {0}
+            print("""Name           : {0}
 Version        : {1}
-Category       : {2}
-Description    : {3}
-URL            : {4}
-License        : {5}
-Votes          : {6}
-Out of Date    : {7}""".format(pkg[0]['Name'], pkg[0]['Version'],
-categories[category], pkg[0]['Description'], pkg[0]['URL'],
-pkg[0]['License'], pkg[0]['NumVotes'], pkg[0]['OutOfDate']))
+URL            : {2}
+Licenses       : {3}
+Category       : {4}
+Votes          : {5}
+Out of Date    : {6}
+Description    : {7}""".format(pkg[0]['Name'], pkg[0]['Version'],
+                               pkg[0]['URL'], pkg[0]['License'],
+                               categories[category], pkg[0]['NumVotes'],
+                               pkg[0]['OutOfDate'], pkg[0]['Description']))
+            #I tried to be simillar to pacman, so you can make a wrapper.
             exit(0)
 
     #oh, no exit?  fine then.  We need to build it.
     for package in args.pkgs:
-        build(package)
-#250 lines!  Compare this to build.pl's 56 (including ~8 useless...)
+        build(package, args.valid)
+        #This one is amazing, too.  See lines #225-#227.
+#over 300 lines!  Compare this to build.pl's 56 (including ~8 useless...)
+#New features will be included when they will be added to the AUR RPC.
+# <http://aur.archlinux.org/rpc.php> (current: search info msearch)
+#If something new will appear there, tell me through GH Issues or mail.
+#Some other features might show up, too.         Sorry for wasting 5 lines.
