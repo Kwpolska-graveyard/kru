@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-# PKGBUILDer (Python3 release)
+# PKGBUILDer Version 2
 # Part of KRU
 # Copyright Kwpolska 2011. Licensed under GPLv3.
-#USAGE: ./build.py pkg1 [pkg2] [pkg3] (and more)
+# USAGE: ./build.py pkg1 [pkg2] [pkg3] (and more)
 
 import pyalpm               # pyalpm in [extra]
 import pycman               # pyalpm in [extra]

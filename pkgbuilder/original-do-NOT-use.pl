@@ -2,7 +2,7 @@
 # PKGBUILDer
 # Part of KRU
 # Copyright Kwpolska 2010. Licensed on GPLv3.
-#USAGE: ./build pkg1 [pkg2] [pkg3] (and more)
+# USAGE: ./build pkg1 [pkg2] [pkg3] (and more)
 
 use warnings;
 use strict;
