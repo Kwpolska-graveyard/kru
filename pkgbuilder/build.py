@@ -225,8 +225,8 @@ packages (PACKAGE becomes maintainer's name")
         RED=''
         YELLOW=''
 
-    if args.search == True:
-        if args.maintsearch == True:
+    if args.search == True or args.maint == True:
+        if args.maint == True:
             pkgsearch = msearch(' '.join(args.pkgs))
         else:
             pkgsearch = search(' '.join(args.pkgs))
