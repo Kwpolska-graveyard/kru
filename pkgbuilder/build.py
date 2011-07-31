@@ -59,11 +59,8 @@ def info(pkgname, quiet):
 
 def search(pkgname):
     aur = AUR.AUR(threads=10)
-    return aur.search(pkgname)
-
-def msearch(username):
-    aur = AUR.AUR(threads=10)
-    return aur.msearch(username)
+    aur_pkgs = aur.search(pkgname)
+    return aur_pkgs
 
 def showInfo(package):
     pycman.config.init_with_config('/etc/pacman.conf')
@@ -126,7 +123,9 @@ def buildSub(package):
                                          pkginfo[0]['URLPath'])
         size=''
         headers = rhandle.info()
-        open(filename, 'wb').write(rhandle.read())
+        fhandle = open(filename, 'wb')
+        fhandle.write(rhandle.read())
+        fhandle.close()
         fancyMsg2(headers['Content-Length']+' bytes downloaded')
 
         #extracting
@@ -146,47 +145,52 @@ def buildSub(package):
         dep = re.search('^depends=.*', pkgbuild, re.MULTILINE)
         mkd = re.search('^makedepends=.*', pkgbuild, re.MULTILINE)
         phandle.close()
-        depends = shlex.split(dep.group(0)[9:-1])
+        if dep != None:
+            depends = shlex.split(dep.group(0)[9:-1])
+        else:
+            depends = []
         if mkd != None:
             makedepends = shlex.split(mkd.group(0)[13:-1])
         else:
             makedepends = []
         bothdepends = depends + makedepends
-
+        addonAUR = []
+        addonAURUse = False
         #depcheck
         fancyMsg('Checking dependencies...')
-        pycman.config.init_with_config('/etc/pacman.conf')
-        db = pyalpm.get_localdb()
-        #These lines appear THREE times in this script.  For a reason.
-        #pyalpm is really, REALLY unstable, so I think that it might
-        #break if I would use a function.
-        for dep in bothdepends:
-            if re.search('[<=>]', dep):
-                fancyMsg2('{0} must be in a specific version. Problems may \
-occur if the package is from the AUR.'.format(dep))
-                vP = '>=<|><=|=><|=<>|<>=|<=>|>=|=>|><|<>|=<|<=|>|=|<'
-                verBase = re.split(vP, dep)
-                dep = verBase[0]
-                ver = verBase[1]
-            pkg = db.get_pkg(dep)
-            repos = dict((db.name,db) for db in pyalpm.get_syncdbs())
-            addonAUR = []
-            addonAURUse = False
-            if pkg != None:
-                fancyMsg2('{0}: found in system'.format(dep))
-            elif pycman.action_sync.find_sync_package(dep, repos):
-                fancyMsg2('{0}: found in repos'.format(dep))
-            elif info(dep, True):
-                fancyMsg2('{0}: found in the AUR, will build now'.format(dep))
-                addonAUR.append('dep')
-                addonAURUse = True
-            else:
-                raise Exception("depcheck: cannot find {0}\
-                anywhere (system, repos, AUR)".format(dep))
-        pyalpm.release()
-        if addonAURUse == True:
-            return 22
-
+        if bothdepends == []:
+            fancyMsg2('none found') #THANK YOU, DEVELOPER, FOR HAVING
+                                    #NO DEPS AND DESTROYING ME!
+        else:
+            pycman.config.init_with_config('/etc/pacman.conf')
+            db = pyalpm.get_localdb()
+            #These lines appear THREE times in this script.  For a reason.
+            #pyalpm is really, REALLY unstable, so I think that it might
+            #break if I would use a function.
+            for dep in bothdepends:
+                if re.search('[<=>]', dep):
+                    fancyMsg2('{0} must be in a specific version. Problems \
+may occur if the package is from the AUR.'.format(dep))
+                    vP = '>=<|><=|=><|=<>|<>=|<=>|>=|=>|><|<>|=<|<=|>|=|<'
+                    verBase = re.split(vP, dep)
+                    dep = verBase[0]
+                    ver = verBase[1]
+                pkg = db.get_pkg(dep)
+                repos = dict((db.name,db) for db in pyalpm.get_syncdbs())
+                if pkg != None:
+                    fancyMsg2('{0}: found in system'.format(dep))
+                elif pycman.action_sync.find_sync_package(dep, repos):
+                    fancyMsg2('{0}: found in repos'.format(dep))
+                elif info(dep, True):
+                    fancyMsg2('{0}: found in the AUR, will build now'.format(dep))
+                    addonAUR.append('dep')
+                    addonAURUse = True
+                else:
+                    raise Exception("depcheck: cannot find {0}\
+                    anywhere (system, repos, AUR)".format(dep))
+                pyalpm.release()
+            if addonAURUse == True:
+                return 22
         #build
         return subprocess.call('/usr/bin/makepkg -si', shell=True)
         #Is that it?  The main function takes only ONE LINE?! Amazing.
@@ -209,9 +213,6 @@ packages were installed after build")
 
     parser.add_argument('-i', '--info', action='store_true', default=False,
                         dest='info', help="show package info")
-    parser.add_argument('-m', '---maintsearch', action='store_true',
-                        default=False, dest='maint', help="show maintainer's\
-packages (PACKAGE becomes maintainer's name")
     parser.add_argument('-s', '--search', action='store_true', default=False,
                         dest='search', help="search for a package")
     parser.add_argument('pkgs', metavar="PACKAGE", action='store', nargs='*',
@@ -225,11 +226,8 @@ packages (PACKAGE becomes maintainer's name")
         RED=''
         YELLOW=''
 
-    if args.search == True or args.maint == True:
-        if args.maint == True:
-            pkgsearch = msearch(' '.join(args.pkgs))
-        else:
-            pkgsearch = search(' '.join(args.pkgs))
+    if args.search == True:
+        pkgsearch = search(' '.join(args.pkgs))
         for package in pkgsearch:
             showInfo(package)
         exit(0)
@@ -254,5 +252,4 @@ pkg[0]['License'], pkg[0]['NumVotes'], pkg[0]['OutOfDate']))
     #oh, no exit?  fine then.  We need to build it.
     for package in args.pkgs:
         build(package)
-#over 250 lines!  Compare this to build.pl's 56 (including ~8 useless...)
-#Better yet: another feature is planned.
+#250 lines!  Compare this to build.pl's 56 (including ~8 useless...)
