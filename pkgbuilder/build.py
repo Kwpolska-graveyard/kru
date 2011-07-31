@@ -239,6 +239,9 @@ anywhere (system, repos, AUR)".format(dep))
         fancyError(str(inst))
     except Exception as inst:
         fancyError(str(inst))
+    except KeyboardInterrupt as inst:
+        fancyError('KeyboardInterrupt caught.')
+        exit(0)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="A python3 AUR helper \
