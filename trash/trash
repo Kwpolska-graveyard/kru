@@ -4,11 +4,11 @@
 # Copyright Kwpolska 2011.  Licensed under GPLv3.
 import shutil
 import os
-import os.path
 import subprocess
 import datetime
 import sys
-from argparse import *
+import argparse
+
 
 ktdirectory = os.path.expanduser("~/.local/share/Trash")
 
@@ -47,8 +47,9 @@ def moveToTrashVerbose(filename):
 
 
 if __name__ == '__main__':
-    parser = ArgumentParser(description="A simple trash script.  Part of KRU,\
-                            copyright Kwpolska 2011, licensed under GPLv3.")
+    parser = argparse.ArgumentParser(description="A simple trash script. \
+                                     Part of KRU, copyright Kwpolska 2011, \
+                                     licensed under GPLv3.")
     parser.add_argument('-v', '--verbose', action='store_true', default=False,
                         dest='verbose', help="print more info")
     parser.add_argument('-e', '--empty', action='store_true', default=False,

@@ -310,4 +310,4 @@ Description    : {7}""".format(pkg[0]['Name'], pkg[0]['Version'],
 #New features will be included when they will be added to the AUR RPC.
 # <http://aur.archlinux.org/rpc.php> (current: search info msearch)
 #If something new will appear there, tell me through GH Issues or mail.
-#Some other features might show up, too.         Sorry for wasting 5 lines.
+#Some other features might show up, too.
