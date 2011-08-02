@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 # KWD addlic
-# Part of KRUKRU
+# Part of KRU
 # Copyright Kwpolska 2011. Licensed under GPLv3.
 
 use warnings;

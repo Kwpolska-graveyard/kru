@@ -40,6 +40,6 @@ print " done\n";
 
 print "Installing copyright notices...";
 copy('lic', $dir);
-unlink($dir.'lic/CONTENTS');
+unlink($dir.'licenses/CONTENTS');
 print " done\n";
 print "All done.  To add a new license, run addlic.pl.\n";

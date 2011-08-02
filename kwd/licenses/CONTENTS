@@ -1,0 +1,12 @@
+KWD includes the following copyright notices:
+
+ *  freebsd -- The 2-clause BSD Copyright Notice.
+    UDIC=true, source=wikipedia, GPL compatible
+ *  gplv3 -- The GNU GPLv3 Copyright Notice.
+    UDIC=true, source=FSF
+ *  lgplv3 -- The GNU LGPLv3 Copyright Notice.
+    UDIC=true, source=FSF
+ *  newbsd -- The 3-clause BSD Copyright Notice.
+    UDIC=true, source=supybot, GPL compatible
+ *  mit -- The MIT/X11 Copyright Notice.
+    UDIC=true, source=wikipedia, GPL compatible

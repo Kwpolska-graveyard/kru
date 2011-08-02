@@ -1,14 +1,15 @@
- _                 _                            _             
-| | ____      ____| | __      ____ _ _ __ _ __ (_)_ __   __ _ 
-| |/ /\ \ /\ / / _` | \ \ /\ / / _` | '__| '_ \| | '_ \ / _` |
-|   <  \ V  V / (_| |  \ V  V / (_| | |  | | | | | | | | (_| |
-|_|\_\  \_/\_/ \__,_|   \_/\_/ \__,_|_|  |_| |_|_|_| |_|\__, |
-                                                        |___/ 
+  _ KWD (v1/v2)     _   ERROR#1 NOTEMPLATE       _
+ | | ____      ____| | __      ____ _ _ __ _ __ (_)_ __   __ _
+ | |/ /\ \ /\ / / _` | \ \ /\ / / _` | '__| '_ \| | '_ \ / _` |
+ |   <  \ V  V / (_| |  \ V  V / (_| | |  | | | | | | | | (_| |
+ |_|\_\  \_/\_/ \__,_|   \_/\_/ \__,_|_|  |_| |_|_|_| |_|\__, |
+                                                         |___/
 The script was not configured properly!
-Input received:
-1. _KWDMAININFO_
-2. _KWDPURPOSE_
-3. _KWDINSTRUCTIONS_
-4. _KWDNOTES_
-5. _KWDCOPYRIGHT_
-KWD copyright Kwpolska 2010.
+Input received (v1/v2):
+0. {0}
+1. _KWDPURPOSE_/{1}
+2. _KWDMAININFO_/{2}
+3. _KWDINSTRUCTIONS_/{3}
+4. _KWDNOTES_/{4}
+5. _KWDCOPYRIGHT_/{5}
+KWD copyright Kwpolska 2011.

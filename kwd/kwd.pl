@@ -1,8 +1,9 @@
 #!/usr/bin/perl
-# KWD
+# KWD1
 # Part of KRU
 # Copyright Kwpolska 2010-2011. Licensed under GPLv3.
-# Portions copyright Enlik 2010.
+
+#KWD1 will be obsolete when KWD2 comes out.
 
 use warnings;
 use strict;
@@ -17,7 +18,7 @@ my $cpname = $config->{kwd}->{cpname};
 
 #hello user, I seem to work fine.
 
-print "KWD, a part of KRU, copyright Kwpolska 2010-2011.\n";
+print "KWD v1, a part of KRU, copyright Kwpolska 2010-2011.\n";
 print "Licensed under GPLv3.\n\n";
 
 #user input time!
@@ -34,11 +35,11 @@ print "3. Install instructions\n";
 print "3> ";
 my $instructions = <STDIN>;
 
-print "4. Additional notes - leave empty if not needed\n";
+print "4. Additional notes -- leave empty if not needed\n";
 print "4> ";
 my $notesbase = <STDIN>;
 
-print "5. Usage instructions - leave empty if not needed\n";
+print "5. Usage instructions -- leave empty if not needed\n";
 print "5> ";
 my $usagebase = <STDIN>;
 
