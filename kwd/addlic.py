@@ -38,7 +38,7 @@ else:
         bnd = 'true'
 
 bnf = os.path.basename(cnf)
-shutil.copy(cnf, dir+'licenses/'+cnf)
+shutil.copy(cnf, dir+'lic/'+cnf)
 config = ConfigParser.ConfigParser()
 config.read(dir+'kwdrc.ini')
 config.set('usedataincopyright', bnf, bnd)

@@ -6,10 +6,9 @@
                                                          |___/
 The script was not configured properly!
 Input received (v1/v2):
-0. {0}
-1. _KWDPURPOSE_/{1}
-2. _KWDMAININFO_/{2}
+1. _KWDMAININFO_/{1}
+2. _KWDPURPOSE_/{2}
 3. _KWDINSTRUCTIONS_/{3}
 4. _KWDNOTES_/{4}
-5. _KWDCOPYRIGHT_/{5}
-KWD copyright Kwpolska 2011.
+5. _KWDCOPYRIGHT_/{6}
+KWD copyright Kwpolska 2011.{0}{5}

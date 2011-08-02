@@ -39,5 +39,6 @@ config.set('usedataincopyright', 'mit', 'true')
 config.set('usedataincopyright', 'newbsd', 'true')
 if os.path.exists(dir) == False:
     os.mkdir(dir)
-    shutil.copytree(os.getcwd()+'/licenses', dir+'licenses')
+    shutil.copytree(os.getcwd()+'/lic', dir+'licenses')
+    shutil.copy(template, dir)
 config.write(open(dir+'kwdrc.ini', 'w'))

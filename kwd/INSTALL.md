@@ -1,16 +1,15 @@
-NOTICE: This readme applies for KWDv1.  Readme for KWDv2 is on its way.
-1. Edit the template file. Put it the way you want it. You have to put ALL of the variables, including `_KWDNOTES_`. Put it like this:
+NOTICE: This readme applies for KWDv2.
 
+1. Edit the template file.  Put it the way you want it. You have to put ALL of the variables.  You NEED to end it with `{0}{5}`. Put it like this:
+
+    README FOR {1}
     PURPOSE:
-    _KWDPURPOSE_
-    
-    INSTALL:
-    _KWDINSTRUCTIONS_
-    _KWDNOTES_
-    
+    {2}
+    INSTALL INSTRUCTIONS:
+    {3}
+    {4}
     COPYRIGHT:
-    _KWDCOPYRIGHT_
+    {6}{0}{5}
 
-If notes and usage aren't set, `_KWDNOTES` puts nothing in the line, but it must be in the file.
 2. Run ./configure.py.
-3. If you will have to add a license, use addlic.py (syntax: ./addlic.py OR ./addlic.py [--nodata] FILE)
+3. If you want to add another license, use addlic.py (syntax: ./addlic.py OR ./addlic.py [--nodata] FILE)
