@@ -12,7 +12,8 @@ import datetime
 dir = os.path.expanduser("~/.kwd/")
 config = ConfigParser.ConfigParser()
 config.read(dir+'kwdrc.ini')
-spacer=config.get('kwd', 'spacer')
+nheadr=config.get('kwd', 'nheadr')
+uheadr=config.get('kwd', 'uheadr')
 defcpr=config.get('kwd', 'defcpr')
 cpname=config.get('kwd', 'cpname')
 
@@ -37,11 +38,12 @@ fname  = askForInput(7, 'Filename')
 
 noteuse = ''
 if notesb != '':
-    noteuse = noteuse+notesb
+    noteuse = noteuse+nheadr+'\n'+notesb+'\n'
 if usageb != '':
-    noteuse = noteuse+usageb
+    noteuse = noteuse+uheadr+'\n'+usageb+'\n'
 purpose = purpose.replace('\\n', '\n')
-install = purpose.replace('\\n', '\n')
+install = install.replace('\\n', '\n')
+noteuse = noteuse.replace('\\n', '\n')
 
 #We'd be on line 86 here in v1.  Or ~60 if I'd implement askForInput().
 
@@ -50,7 +52,7 @@ if license == '':
 
 template = open(dir+'template', 'r').read()
 lictext  = open(dir+'lic/'+license, 'r').read()
-licfinal = lictext % datetime.date.today().year, cpname
+licfinal = lictext % (datetime.date.today().year, cpname)
 #{0} is a cheat.  And licfinal is backwards-compatible.
 final    = template.format('', header, purpose, install, noteuse, '', license)
 open(fname, 'w').write(final)

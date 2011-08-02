@@ -13,11 +13,14 @@ print "KWD v2, part of KRU, copyright Kwpolska 2010-2011. \
 Licensed under GPLv3."
 print "KWD configure: configuration file creator\n"
 
-print "NOTES/USAGE spacer (eg. -----)"
-spacer = raw_input('> ')
+print "Notes header (eg. NOTES:\n------):"
+nheadr = raw_input('> ')
+
+print "Usage header (eg. USAGE:\n------):"
+uheadr = raw_input('> ')
 
 print "\nDefault copyright notice:\n  Already available: \
-freebsd gplv3 mit newbsd"
+freebsd gplv3 lgplv3 mit newbsd"
 defcpr = raw_input('> ')
 
 print "\nName (required for copyright notices):"
@@ -28,7 +31,8 @@ print "\n"
 config = ConfigParser.ConfigParser()
 
 config.add_section('kwd')
-config.set('kwd', 'spacer', spacer)
+config.set('kwd', 'nheadr', nheadr)
+config.set('kwd', 'uheadr', uheadr)
 config.set('kwd', 'defcpr', defcpr)
 config.set('kwd', 'cpname', cpname)
 
