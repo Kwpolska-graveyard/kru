@@ -115,20 +115,20 @@ def build(package, validate):
                 if pkg is None:
                     fancyError("validation: NOT installed")
                 elif aur[0]['Version'] != pkg.version:
-                    fancyMsg2("validation: installed "+pkg.version)
+                    fancyMsg2("validation: out of date, installed "+pkg.version)
                 else:
                     fancyMsg2("validation: installed "+pkg.version)
-            elif buildResult == 1:
-                raise Exception("The build function returned 1 (error).");
-                #I think that only makepkg can do that.  Others would raise
-                #an exception.
-            elif buildResult == 22:
-                #I hope makepkg never returns 22. If it does, we need 287,
-                #which is impossible in bash.       (287 = AUR on a phone)
-                fancyMsg("Building more AUR packages is required.")
-                for package2 in addonAUR:
-                    build(package2)
-                build(package)
+        elif buildResult == 1:
+            raise Exception("The build function returned 1 (error).");
+            #I think that only makepkg can do that.  Others would raise
+            #an exception.
+        elif buildResult == 22:
+            #I hope makepkg never returns 22. If it does, we need 287,
+            #which is impossible in bash.       (287 = AUR on a phone)
+            fancyMsg("Building more AUR packages is required.")
+            for package2 in addonAUR:
+                build(package2)
+            build(package)
     except Exception as inst:
         fancyError(str(inst))
 
