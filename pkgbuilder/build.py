@@ -249,7 +249,8 @@ anywhere (system, repos, AUR)".format(dep))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="A python3 AUR helper \
-(sort of.)  Wrapper-friendly (pacman-like output.)")
+(sort of.)  Wrapper-friendly (pacman-like output.)", epilog="You can use \
+pacman syntax if you want to.")
     parser.add_argument('-C', '--nocolor', action='store_false',
                         default=True, dest='color', help="don't use colors")
     parser.add_argument('-V', '--novalidation', action='store_false',
@@ -261,6 +262,9 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--search', action='store_true',
                         default=False, dest='search', help="search for a \
                         package")
+
+    parser.add_argument('-S', '--sync', action='store_true', default=False,
+                        dest='pac', help="pacman syntax compatiblity")
     parser.add_argument('pkgs', metavar="PACKAGE", action='store',
                         nargs='*', help="packages to build")
     args = parser.parse_args()
