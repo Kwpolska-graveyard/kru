@@ -122,13 +122,11 @@ def build(package, validate):
             raise Exception("The build function returned 1 (error).");
             #I think that only makepkg can do that.  Others would raise
             #an exception.
-        elif buildResult == 22:
-            #I hope makepkg never returns 22. If it does, we need 287,
-            #which is impossible in bash.       (287 = AUR on a phone)
+        else:
             fancyMsg("Building more AUR packages is required.")
-            for package2 in addonAUR:
-                build(package2)
-            build(package)
+            for package2 in buildResult:
+                build(package2, True)
+            build(package, True)
     except Exception as inst:
         fancyError(str(inst))
 
@@ -223,14 +221,14 @@ may occur if the package is from the AUR.'.format(dep))
                     fancyMsg2('{0}: found in repos'.format(dep))
                 elif info(dep):
                     fancyMsg2('{0}: found in the AUR, will build now'.format(dep))
-                    addonAUR.append('dep')
+                    addonAUR.append(dep)
                     addonAURUse = True
                 else:
                     raise Exception("depcheck: cannot find {0} \
 anywhere (system, repos, AUR)".format(dep))
             pyalpm.release()
             if addonAURUse == True:
-                return 22
+                return addonAUR
         #build
         return subprocess.call('/usr/bin/makepkg -sic', shell=True)
         #Is that it?  The main function takes only ONE LINE?!
