@@ -111,14 +111,12 @@ def build(package, validate):
                 pycman.config.init_with_config('/etc/pacman.conf')
                 db = pyalpm.get_localdb()
                 pkg = db.get_pkg(package)
-                pyalpm.release()
-                aur = info(package)
                 if pkg is None:
+                    pyalpm.release()
                     fancyError("validation: NOT installed")
-                elif aur[0]['Version'] != pkg.version:
-                    fancyMsg2("validation: out of date, installed "+pkg.version)
                 else:
                     fancyMsg2("validation: installed "+pkg.version)
+                    pyalpm.release()
         elif buildResult == 1:
             os.chdir('../')
             raise Exception("The build function returned 1 (error).");
