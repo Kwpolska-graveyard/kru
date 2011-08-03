@@ -105,6 +105,7 @@ def build(package, validate):
     try:
         if buildResult == 0:
             fancyMsg("The build function reported a proper build.")
+            os.chdir('../')
             if validate == True:
                 #check if installed
                 pycman.config.init_with_config('/etc/pacman.conf')
@@ -119,10 +120,12 @@ def build(package, validate):
                 else:
                     fancyMsg2("validation: installed "+pkg.version)
         elif buildResult == 1:
+            os.chdir('../')
             raise Exception("The build function returned 1 (error).");
             #I think that only makepkg can do that.  Others would raise
             #an exception.
         else:
+            os.chdir('../')
             fancyMsg("Building more AUR packages is required.")
             for package2 in buildResult:
                 build(package2, True)
