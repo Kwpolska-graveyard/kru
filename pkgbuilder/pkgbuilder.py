@@ -49,14 +49,14 @@ categories = ['ERR0R', 'ERR1R', 'daemons', 'devel', 'editors', 'emulators',
 #If you can see ERR0R or ERR1R in the output, something bad has happened.
 def info(pkgname):
     """
-    Returns aur_pkgs[0].  If quiet is set to False, will throw an error if
-    there is no such package.
+    Returns info about a package.
     """
     try:
         aur = AUR.AUR(threads=10)
         aur_pkgs = aur.info(pkgname)
         if aur_pkgs == []:
-            return None
+            raise Exception("Cannot find the package \
+`{0}'.".format(pkgname))
         else:
             return aur_pkgs
     except Exception as inst:
@@ -148,8 +148,6 @@ def buildSub(package):
     try:
         #exists
         pkginfo = info(package)
-        if pkginfo is None:
-            raise Exception("Cannot find the package `"+package+"'.")
         fancyMsg('Compiling package {0}...'.format(pkginfo[0]['Name']))
         showInfo(pkginfo[0])
         filename = pkginfo[0]['Name']+'.tar.gz'
@@ -231,9 +229,9 @@ anywhere (system, repos, AUR)".format(dep))
             if addonAURUse == True:
                 return addonAUR
         #build
-        return subprocess.call('/usr/bin/makepkg -sic', shell=True)
+        return subprocess.call('/usr/bin/makepkg -si', shell=True)
         #Is that it?  The main function takes only ONE LINE?!
-        #Amazing.  I don't believe it. This comment fixes the `problem.'
+        #Amazing.  I don't believe it.
     except urllib.error.URLError as inst:
         fancyError(str(inst))
     except urllib.error.HTTPError as inst:
@@ -276,20 +274,9 @@ pacman syntax if you want to.")
         RED=''
         YELLOW=''
 
-    if args.search == True:
-        pkgsearch = search(' '.join(args.pkgs)) #pacman-like behavior.
-        for package in pkgsearch:
-            showInfo(package)
-        exit(0)
-
     if args.info == True:
         for package in args.pkgs:
-            try:
-                pkg = info(package, True)
-                if pkg is None:
-                    raise Exception("Cannot find the package `"+pkgname+"'.")
-            except Exception as inst:
-                fancyError(str(inst))
+            pkg = info(package)
             category = pkg[0]['CategoryID']
             print("""Name           : {0}
 Version        : {1}
@@ -303,7 +290,16 @@ Description    : {7}""".format(pkg[0]['Name'], pkg[0]['Version'],
                                categories[category], pkg[0]['NumVotes'],
                                pkg[0]['OutOfDate'], pkg[0]['Description']))
             #I tried to be simillar to pacman, so you can make a wrapper.
-            exit(0)
+        exit(0)
+
+    if args.pac == True:
+        categories = ['aur'] * len(categories)
+
+    if args.search == True:
+        pkgsearch = search(' '.join(args.pkgs)) #pacman-like behavior.
+        for package in pkgsearch:
+            showInfo(package)
+        exit()
 
     #oh, no exit?  fine then.  We need to build it.
     for package in args.pkgs:
