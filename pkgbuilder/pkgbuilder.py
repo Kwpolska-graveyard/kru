@@ -71,7 +71,7 @@ def search(pkgname):
     aur_pkgs = aur.search(pkgname)
     return aur_pkgs
 
-def showInfo(package):
+def showInfo(package, useCategories = True):
     """
     Outputs info about package.
 
@@ -82,15 +82,19 @@ def showInfo(package):
     db = pyalpm.get_localdb()
     pkg = db.get_pkg(package['Name'])
 
-    category = package['CategoryID']
+    category = ''
     outofdate = ''
     installed = ''
     if package['OutOfDate'] == 1:
         outofdate=', '+RED+'out of date'+ALL_OFF
     if pkg != None:
         installed = ' [installed]'
+    if useCategories == True:
+        category = categories[package['CategoryID']]
+    else:
+        category = 'aur'
 
-    print("{0}/{1} {2} ({4} votes{5}){6}\n    {3}".format(categories[category],
+    print("{0}/{1} {2} ({4} votes{5}){6}\n    {3}".format(category,
           package['Name'], package['Version'], package['Description'],
           package['NumVotes'], outofdate, installed))
 
@@ -196,8 +200,8 @@ def buildSub(package):
         #depcheck
         fancyMsg('Checking dependencies...')
         if bothdepends == []:
-            fancyMsg2('none found') #THANK YOU, DEVELOPER, FOR HAVING
-                                    #NO DEPS AND DESTROYING ME!
+            #THANK YOU, DEVELOPER, FOR HAVING NO DEPS AND DESTROYING ME!
+            fancyMsg2('none found')
         else:
             pycman.config.init_with_config('/etc/pacman.conf')
             db = pyalpm.get_localdb()
@@ -259,12 +263,21 @@ pacman syntax if you want to.")
     parser.add_argument('-s', '--search', action='store_true',
                         default=False, dest='search', help="search for a \
                         package")
+    parser.add_argument('-u', '--sysupgrade', action='store_true',
+                        default=False, dest='upgrade', help="[NOT IMPLEMENTED] upgrade \
+                        installed AUR packages")
 
     parser.add_argument('-S', '--sync', action='store_true', default=False,
                         dest='pac', help="pacman syntax compatiblity")
+    parser.add_argument('-y', '--refresh', action='store_true',
+                        default=False, dest='pac', help="pacman \
+syntax compatiblity")
     parser.add_argument('pkgs', metavar="PACKAGE", action='store',
                         nargs='*', help="packages to build")
     args = parser.parse_args()
+    if args.upgrade == True:
+        fancyError("Sorry, but this feature is not implemented yet...")
+
     if args.color == False:
         #That's awesome in variables AND this version.
         ALL_OFF=''
@@ -292,16 +305,16 @@ Description    : {7}""".format(pkg[0]['Name'], pkg[0]['Version'],
             #I tried to be simillar to pacman, so you can make a wrapper.
         exit(0)
 
-    if args.pac == True:
-        categories = ['aur'] * len(categories)
-
     if args.search == True:
         pkgsearch = search(' '.join(args.pkgs)) #pacman-like behavior.
         for package in pkgsearch:
-            showInfo(package)
-        exit()
+            if args.pac != True:
+                showInfo(package, True)
+            else:
+                showInfo(package, False)
+        exit(0)
 
-    #oh, no exit?  fine then.  We need to build it.
+    #If we didn't exit, we shall build the packages.
     for package in args.pkgs:
         build(package, args.valid)
         #This one is amazing, too.  See lines #225-#227.
