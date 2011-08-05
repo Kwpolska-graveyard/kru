@@ -233,9 +233,10 @@ anywhere (system, repos, AUR)".format(dep))
             if addonAURUse == True:
                 return addonAUR
         #build
-        return subprocess.call('/usr/bin/makepkg -si', shell=True)
+        return subprocess.call('/usr/bin/makepkg -si --asroot', shell=True)
         #Is that it?  The main function takes only ONE LINE?!
         #Amazing.  I don't believe it.
+        #Sorry for --asroot, but it's a trick for pkgman.
     except urllib.error.URLError as inst:
         fancyError(str(inst))
     except urllib.error.HTTPError as inst:
@@ -270,7 +271,7 @@ pacman syntax if you want to.")
     parser.add_argument('-S', '--sync', action='store_true', default=False,
                         dest='pac', help="pacman syntax compatiblity")
     parser.add_argument('-y', '--refresh', action='store_true',
-                        default=False, dest='pac', help="pacman \
+                        default=False, dest='pacupd', help="pacman \
 syntax compatiblity")
     parser.add_argument('pkgs', metavar="PACKAGE", action='store',
                         nargs='*', help="packages to build")
@@ -313,6 +314,13 @@ Description    : {7}""".format(pkg[0]['Name'], pkg[0]['Version'],
             else:
                 showInfo(package, False)
         exit(0)
+
+    if args.pac == True:
+        uid = os.geteuid()
+        path = '/tmp/pkgbuilder-{0}'.format(str(uid))
+        if os.path.exists(path) == False:
+            os.mkdir(path)
+        os.chdir(path)
 
     #If we didn't exit, we shall build the packages.
     for package in args.pkgs:

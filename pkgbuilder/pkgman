@@ -5,9 +5,9 @@
 #Copyright Kwpolska 2011.  Licensed under GPLv3.
 case "$1" in
     '-h'   | '--help')          echo "pkgman, PKGBUILDERer-pacman wrapper.  Standard pacman syntax applies." ;;
-    '-S'   | '--sync')          if pacman $@ -i 2>&1; then pacman $@; else pkgbuilder $@ ; fi ;;
-    '-Si'  | '--sync --info')   if pacman $@ 2>&1; then pacman $@; else pkgbuilder $@; fi ;;
-    '-Ss'  | '--sync --search') pacman $@; pkgbuilder $@ ;;
-    '-Syu' | '-Su' | '-Syyu')   pacman $@; pkgbuilder $@ ;; # --sync --refresh --sysupgrade is too long.
-    default)                    pacman $@                   # -R and other actions that can't be done by PKGBUILDer are given to pacman.
+    '-S'   | '--sync')          if pacman "$@" -i &> /dev/null; then pacman "$@"; else pkgbuilder "$@" ; fi ;;
+    '-Si'  | '--sync --info')   if pacman "$@" -i &> /dev/null; then pacman "$@"; else pkgbuilder "$@"; fi ;;
+    '-Ss'  | '--sync --search') pacman "$@"; pkgbuilder "$@" ;;
+    '-Syu' | '-Su' | '-Syyu')   pacman "$@"; pkgbuilder "$@" ;; # --sync --refresh --sysupgrade is too long.
+    default)                    pacman "$@"                     # -R and other actions that can't be done by PKGBUILDer are given to pacman.
 esac
