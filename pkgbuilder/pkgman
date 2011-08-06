@@ -9,5 +9,5 @@ case "$1" in
     '-Si'  | '--sync --info')   if pacman "$@" -i &> /dev/null; then pacman "$@"; else pkgbuilder "$@"; fi ;;
     '-Ss'  | '--sync --search') pacman "$@"; pkgbuilder "$@" ;;
     '-Syu' | '-Su' | '-Syyu')   pacman "$@"; pkgbuilder "$@" ;; # --sync --refresh --sysupgrade is too long.
-    default)                    pacman "$@"                     # -R and other actions that can't be done by PKGBUILDer are given to pacman.
+    *)                          pacman "$@"                     # -R and other actions that can't be done by PKGBUILDer are given to pacman.
 esac
