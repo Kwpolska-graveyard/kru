@@ -1,2 +1,0 @@
-The KPG is awesome and out of date!
-The KPG is really awesome, but out-of-date. And the best thing in the whole project is: you shall use Jekyll now.
