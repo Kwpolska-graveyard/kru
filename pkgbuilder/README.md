@@ -7,11 +7,7 @@ This tool is a basic AUR helper.  Version 2 in Py3K.
 
 INSTALLATION
 ------------
-Copy pkgbuilder.py to /usr/bin or ~/bin.  If you want to use pkgman,
-the included pacman wrapper, you need to:
- *  rename pkgbuilder.py to pkgbuilder
- *  copy pkgman AND pkgbuilder to /usr/bin, ~/bin or any other directory
-    from $PATH.
+Copy pkgbuilder.py to /usr/bin or ~/bin.
 
 NOTES
 -----
