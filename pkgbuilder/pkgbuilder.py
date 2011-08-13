@@ -233,10 +233,12 @@ anywhere (system, repos, AUR)".format(dep))
             if addonAURUse == True:
                 return addonAUR
         #build
-        return subprocess.call('/usr/bin/makepkg -si --asroot', shell=True)
+        asroot = ''
+        if os.geteuid() == 0:
+            asroot = ' --asroot'
+        return subprocess.call('/usr/bin/makepkg -si'+asroot, shell=True)
         #Is that it?  The main function takes only ONE LINE?!
         #Amazing.  I don't believe it.
-        #Sorry for --asroot, but it's a trick for pkgman.
     except urllib.error.URLError as inst:
         fancyError(str(inst))
     except urllib.error.HTTPError as inst:
