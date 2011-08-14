@@ -47,6 +47,17 @@ categories = ['ERR0R', 'ERR1R', 'daemons', 'devel', 'editors', 'emulators',
               'multimedia', 'network', 'office', 'science', 'system',
               'x11', 'xfce']
 #If you can see ERR0R or ERR1R in the output, something bad has happened.
+
+#Do you want to see `deleted X rows from Y'?  No?  That's why I set this up.
+def pblog(msg, tofile = False, tostderr = False):
+    if tofile == True:
+        open('pkgbuilder.log', 'a').write(msg)
+
+    if tostderr == True:
+        sys.stderr.write(msg)
+
+AUR.log = pblog
+
 def info(pkgname):
     """
     Returns info about a package.
