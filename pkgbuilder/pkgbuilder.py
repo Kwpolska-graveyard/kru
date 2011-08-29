@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # PKGBUILDer Version 2
+# A python3 AUR helper (sort of.) Wrapper friendly (pacman-like output.)
 # Part of KRU
 # Copyright Kwpolska 2011. Licensed under GPLv3.
 # USAGE: ./build.py pkg1 [pkg2] [pkg3] (and more)
@@ -12,16 +13,10 @@ import sys
 import os
 import re
 import shlex
-import json
-import pprint
 import urllib.request
 import urllib.error
 import tarfile
 import subprocess
-
-"""
-A python3 AUR helper (sort of.)  Wrapper-friendly (pacman-like output.)
-"""
 
 #Fancy-schmancy messages stolen from makepkg.
 ALL_OFF="\x1b[1;0m"
@@ -50,13 +45,14 @@ categories = ['ERR0R', 'ERR1R', 'daemons', 'devel', 'editors', 'emulators',
 
 #Do you want to see `deleted X rows from Y'?  No?  That's why I set this up.
 def pblog(msg, tofile = False, tostderr = False):
+    """
+    A log function.  Workaround.
+    """
     if tofile == True:
         open('pkgbuilder.log', 'a').write(msg)
 
     if tostderr == True:
         sys.stderr.write(msg)
-
-AUR.log = pblog
 
 def info(pkgname):
     """
@@ -64,6 +60,7 @@ def info(pkgname):
     """
     try:
         aur = AUR.AUR(threads=10)
+        aur.log = pblog
         aur_pkgs = aur.info(pkgname)
         if aur_pkgs == []:
             raise Exception("Cannot find the package \
@@ -79,6 +76,7 @@ def search(pkgname):
     Searches for AUR packages.
     """
     aur = AUR.AUR(threads=10)
+    aur.log = pblog
     aur_pkgs = aur.search(pkgname)
     return aur_pkgs
 
@@ -127,14 +125,17 @@ def build(package, validate):
                 db = pyalpm.get_localdb()
                 pkg = db.get_pkg(package)
                 if pkg is None:
-                    pyalpm.release()
                     fancyError("validation: NOT installed")
-                else:
-                    fancyMsg2("validation: installed "+pkg.version)
                     pyalpm.release()
+                else:
+                    if info('dropbox')[0]['Version'] != pkg.version:
+                        fancyError("validation: out-of-date, "+pkg.version)
+                    else:
+                        fancyMsg2("validation: installed "+pkg.version)
+                    pyalpm.relase()
         elif buildResult == 1:
             os.chdir('../')
-            raise Exception("The build function returned 1 (error).");
+            raise Exception("The build function returned 1 (error).")
             #I think that only makepkg can do that.  Others would raise
             #an exception.
         else:
@@ -234,7 +235,8 @@ may occur if the package is from the AUR.'.format(dep))
                 elif syncCheck(dep, repos):
                     fancyMsg2('{0}: found in repos'.format(dep))
                 elif info(dep):
-                    fancyMsg2('{0}: found in the AUR, will build now'.format(dep))
+                    fancyMsg2('{0}: found in the AUR, will build \
+now'.format(dep))
                     addonAUR.append(dep)
                     addonAURUse = True
                 else:
@@ -278,8 +280,9 @@ pacman syntax if you want to.")
                         default=False, dest='search', help="search for a \
                         package")
     parser.add_argument('-u', '--sysupgrade', action='store_true',
-                        default=False, dest='upgrade', help="[NOT IMPLEMENTED] upgrade \
-                        installed AUR packages")
+                        default=False, dest='upgrade',
+                        help="[NOT IMPLEMENTED] upgrade installed AUR \
+packages")
 
     parser.add_argument('-S', '--sync', action='store_true', default=False,
                         dest='pac', help="pacman syntax compatiblity")
@@ -315,7 +318,14 @@ Out of Date    : {6}
 Description    : {7}""".format(pkg[0]['Name'], pkg[0]['Version'],
                                pkg[0]['URL'], pkg[0]['License'],
                                categories[category], pkg[0]['NumVotes'],
-                               pkg[0]['OutOfDate'], pkg[0]['Description']))
+                               pkg[0]['OutOfDate'],
+
+                               pkg[0]['Description']))
+            #pkg[0]['Maintainer'], pkg[0]['FirstSubmitted'].strftime(
+            #'%Y-%m-%dT%H:%m:%SZ'), pkg[0]['LastModified'].strftime(
+            #'%Y-%m-%dT%H:%m:%SZ'),
+            #Xyne, hardcoding stuff is evil.
+
             #I tried to be simillar to pacman, so you can make a wrapper.
         exit(0)
 
