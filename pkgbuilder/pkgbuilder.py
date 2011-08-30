@@ -53,14 +53,13 @@ def pblog(msg, tofile = False, tostderr = False):
 
     if tostderr == True:
         sys.stderr.write(msg)
-
+AUR.log = pblog
 def info(pkgname):
     """
     Returns info about a package.
     """
     try:
         aur = AUR.AUR(threads=10)
-        aur.log = pblog
         aur_pkgs = aur.info(pkgname)
         if aur_pkgs == []:
             raise Exception("Cannot find the package \
@@ -76,7 +75,6 @@ def search(pkgname):
     Searches for AUR packages.
     """
     aur = AUR.AUR(threads=10)
-    aur.log = pblog
     aur_pkgs = aur.search(pkgname)
     return aur_pkgs
 
