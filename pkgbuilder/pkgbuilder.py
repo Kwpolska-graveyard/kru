@@ -53,7 +53,9 @@ def pblog(msg, tofile = False, tostderr = False):
 
     if tostderr == True:
         sys.stderr.write(msg)
+
 AUR.log = pblog
+
 def info(pkgname):
     """
     Returns info about a package.
