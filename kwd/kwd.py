@@ -1,5 +1,5 @@
 #!/usr/bin/env python2
-# KWD v2.0.1
+# KWD v2.0.2
 # Part of KRU
 # Copyright Kwpolska 2011. Licensed under GPLv3.
 """
@@ -18,7 +18,7 @@ class Cstorage:
     """A place for storing config data."""
     def __init__(self):
         """C init."""
-        self.kwdir    = os.path.expanduser("~/.kwd/")
+        self.kwdir    = os.path.expanduser("~/.config/kwpolska/kwd/")
         self.config   = None
         self.nheadr   = ''
         self.uheadr   = ''

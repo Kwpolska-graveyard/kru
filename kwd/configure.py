@@ -7,7 +7,7 @@ import ConfigParser
 import sys
 import os
 import shutil
-dir = os.path.expanduser("~/.kwd/")
+dir = os.path.expanduser("~/.config/kwpolska/kwd/")
 
 print "KWD v2, part of KRU, copyright Kwpolska 2010-2011. \
 Licensed under GPLv3."

@@ -1,0 +1,9 @@
+Notice: the config was moved from
+
+    ~/.kwd/
+
+to
+
+    ~/.config/kwpolska/kwd
+
+Please move your config manually.
