@@ -1,6 +1,6 @@
 #!/bin/bash
-#An implementation of the Euclidean Algorithm in bash.
-#By Kwpolska. Public Domain.
+# An implementation of the Euclidean Algorithm in bash.
+# Copyright 2012 Kwpolska.  See ./LICENSE for licensing details.
 
 a=$1
 b=$2

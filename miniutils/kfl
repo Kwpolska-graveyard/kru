@@ -1,6 +1,7 @@
 #!/bin/bash
-#Kill FLash
-#By Kwpolska, Public Domain.
+# Kill FLash
+# Copyright Kwpolska 2011.  For licensing details, see ./LICENSE.
+
 flline=$(ps ax | grep flash | grep -i grep)
 tokill=$(echo $flline | cut -c1-5)
 kill $tokill
