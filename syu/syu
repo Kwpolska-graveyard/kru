@@ -43,11 +43,12 @@ function syuhelp {
     echo "optional arguments:"
     echo "  -h, --help      show this message and exit"
     echo "  -t, --time      update time using NTP and exit"
-    echo "  -l, --lock      unlock the pacman databas and exit"
     echo "  -o, --optimize  optimize the pacman database and exit"
     echo "  -r, --reflect   reflect the mirrors"
     echo "  -c, --cron      perform a cron-friendly update (NTP + pacman -Sy)"
     echo "  -a, --noaur     don't use pkgbuilder while updating."
+    echo ""
+    echo "(-l, --lock has been moved to pb -L/pb --unlock)"
     exit
 }
 
