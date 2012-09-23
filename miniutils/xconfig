@@ -1,4 +1,0 @@
-#!/bin/bash
-X -configure
-mv ~/xorg.conf.new /etc/X11/xorg.conf
-#init 5
