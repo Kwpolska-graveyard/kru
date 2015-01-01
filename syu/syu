@@ -53,8 +53,9 @@ function syuhelp {
 }
 
 #f(02) syutime
-    function syutime {
-    ntpdate pl.pool.ntp.org
+function syutime {
+    ntpd -q
+    #ntpdate pl.pool.ntp.org
 }
 
 #f(03) syunlock
@@ -118,5 +119,5 @@ fi
 
 pacman -Syu
 if [ "$syuaur" != "n" ]; then
-    pkgbuilder -Syu
+    sudo -u kwpolska pkgbuilder -Syu
 fi
