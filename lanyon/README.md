@@ -1,6 +1,9 @@
 Lanyon.  A Jekyll WebUI.
 ==============
 
+PS. Nikola is better.
+=====================
+
 PURPOSE
 -------
 This is a little project intended to help Jekyll users administrate their blogs
